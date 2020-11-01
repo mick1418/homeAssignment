@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.michaellaguerre.symphony.core.di.ApplicationComponent
 import com.michaellaguerre.symphony.data.network.entities.AuthorEntity
 import com.michaellaguerre.symphony.data.network.services.AuthorsService
-import com.michaellaguerre.symphony.ui.main.MainFragment
+import com.michaellaguerre.symphony.ui.fragments.AuthorsFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,25 +31,8 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(
                 R.id.container,
-                MainFragment.newInstance()
+                AuthorsFragment.newInstance()
             ).commitNow()
         }
-
-
-        val result = authorService.getAuthors()
-
-        result.enqueue(object: Callback<List<AuthorEntity>>{
-            override fun onResponse(
-                call: Call<List<AuthorEntity>>,
-                response: Response<List<AuthorEntity>>
-            ) {
-                Log.e("Test", "Number of authors: " + response.body()?.size)
-            }
-
-            override fun onFailure(call: Call<List<AuthorEntity>>, t: Throwable) {
-                Log.e("Test", "ERROR")
-            }
-
-        })
     }
 }

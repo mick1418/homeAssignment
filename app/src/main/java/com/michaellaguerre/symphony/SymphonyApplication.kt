@@ -4,6 +4,7 @@ import android.app.Application
 import com.michaellaguerre.symphony.core.di.ApplicationComponent
 import com.michaellaguerre.symphony.core.di.modules.ApplicationModule
 import com.michaellaguerre.symphony.core.di.DaggerApplicationComponent
+import com.michaellaguerre.symphony.core.di.modules.NetworkModule
 
 class SymphonyApplication: Application(){
 
@@ -11,6 +12,7 @@ class SymphonyApplication: Application(){
         DaggerApplicationComponent
             .builder()
             .applicationModule(ApplicationModule(this))
+            .networkModule(NetworkModule())
             .build()
     }
 
