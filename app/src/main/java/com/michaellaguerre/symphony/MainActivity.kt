@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.michaellaguerre.symphony.core.di.ApplicationComponent
 import com.michaellaguerre.symphony.data.network.entities.AuthorEntity
 import com.michaellaguerre.symphony.data.network.services.AuthorsService
+import com.michaellaguerre.symphony.domain.entities.Post
 import com.michaellaguerre.symphony.ui.fragments.AuthorDetailsFragment
 import com.michaellaguerre.symphony.ui.fragments.AuthorsFragment
 import com.michaellaguerre.symphony.ui.fragments.PostDetailsFragment
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(
                 R.id.container,
-                PostDetailsFragment.newInstance()
+                PostDetailsFragment.newInstance(Post(1, "", "", "", "", 1))
             ).commitNow()
         }
     }
