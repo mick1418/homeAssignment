@@ -20,6 +20,7 @@ class PostsAdapter
         notifyDataSetChanged()
     }
 
+    internal var clickListener: (Post) -> Unit = { _-> }
 
     //**********************************************************************************************
     // LIFECYCLE
@@ -30,7 +31,7 @@ class PostsAdapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        return holder.bind(collection[position])
+        return holder.bind(collection[position], clickListener)
     }
 
     override fun getItemCount() = collection.size
@@ -42,14 +43,12 @@ class PostsAdapter
 
     class ViewHolder(itemView: PostView) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(post: Post) {
+        fun bind(post: Post, clickListener: (Post) -> Unit) {
             itemView as PostView
             itemView.binding.postTitleTextView.text = post.title
             itemView.binding.postCoverImageView.loadFromUrl(post.imageUrl)
             itemView.binding.postDateTextView.text = post.date
-            itemView.setOnClickListener {
-                //TODO
-            }
+            itemView.setOnClickListener { clickListener(post) }
         }
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.extensions.gone
@@ -56,8 +57,8 @@ class AuthorsFragment : BaseFragment() {
         appComponent.inject(viewModel)
 
         // Configure observers
-        viewModel.authors.observe(this, ::handleSuccess)
-        viewModel.failure.observe(this, ::handleFailure)
+        viewModel.authors.observe(viewLifecycleOwner, ::displayAuthors)
+        viewModel.failure.observe(viewLifecycleOwner, ::handleFailure)
 
 
         configureRecyclerView()
@@ -77,13 +78,23 @@ class AuthorsFragment : BaseFragment() {
             layoutManager = GridLayoutManager(context, 3)
             adapter = authorsAdapter
 
-            val recyclerViewPadding = resources.getDimensionPixelSize(R.dimen.authors_fragment_grid_spacing)
-            val spacingDecorator =  SpacingItemDecorator(recyclerViewPadding, SpacingItemDecorator.GRIDVIEW, false, false)
+            authorsAdapter.clickListener = { author ->
+
+                findNavController().navigate(
+                    AuthorsFragmentDirections.actionAuthorsFragmentToAuthorDetailsFragment(author)
+                )
+            }
+
+            val recyclerViewPadding =
+                resources.getDimensionPixelSize(R.dimen.authors_fragment_grid_spacing)
+            val spacingDecorator = SpacingItemDecorator(
+                recyclerViewPadding,
+                SpacingItemDecorator.GRIDVIEW,
+                false,
+                false
+            )
             addItemDecoration(spacingDecorator)
         }
-//        moviesAdapter.clickListener = { movie, navigationExtras ->
-//            navigator.showMovieDetails(activity!!, movie, navigationExtras)
-//        }
     }
 
 
@@ -91,7 +102,7 @@ class AuthorsFragment : BaseFragment() {
     // ACTIONS
     //**********************************************************************************************
 
-    private fun handleSuccess(authors: List<Author>?) {
+    private fun displayAuthors(authors: List<Author>?) {
 
         authorsAdapter.collection = authors.orEmpty()
 
@@ -108,15 +119,4 @@ class AuthorsFragment : BaseFragment() {
         binding.recyclerView.gone()
         binding.noData.visible()
     }
-
-
-    //**********************************************************************************************
-    // COMPANION OBJECT
-    //**********************************************************************************************
-
-    companion object {
-        fun newInstance() = AuthorsFragment()
-    }
-
-
 }

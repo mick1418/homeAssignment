@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authorsFragment">
+
+    <fragment
+        android:id="@+id/authorsFragment"
+        android:name="com.michaellaguerre.symphony.ui.fragments.AuthorsFragment"
+        android:label="authors_fragment"
+        tools:layout="@layout/authors_fragment">
+        <action
+            android:id="@+id/action_authorsFragment_to_authorDetailsFragment"
+            app:destination="@id/authorDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/authorDetailsFragment"
+        android:name="com.michaellaguerre.symphony.ui.fragments.AuthorDetailsFragment"
+        android:label="AuthorDetailsFragment">
+        <action
+            android:id="@+id/action_authorDetailsFragment_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="author"
+            app:argType="com.michaellaguerre.symphony.domain.entities.Author" />
+    </fragment>
+    <fragment
+        android:id="@+id/postDetailsFragment"
+        android:name="com.michaellaguerre.symphony.ui.fragments.PostDetailsFragment"
+        android:label="PostDetailsFragment" >
+        <argument
+            android:name="post"
+            app:argType="com.michaellaguerre.symphony.domain.entities.Post" />
+    </fragment>
+</navigation>

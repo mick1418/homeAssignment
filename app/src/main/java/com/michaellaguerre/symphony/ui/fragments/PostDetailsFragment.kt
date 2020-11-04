@@ -5,8 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.extensions.gone
@@ -14,12 +14,10 @@ import com.michaellaguerre.symphony.core.extensions.visible
 import com.michaellaguerre.symphony.core.platform.BaseFragment
 import com.michaellaguerre.symphony.core.utils.Failure
 import com.michaellaguerre.symphony.databinding.PostDetailsFragmentBinding
-import com.michaellaguerre.symphony.domain.entities.Author
 import com.michaellaguerre.symphony.domain.entities.Comment
 import com.michaellaguerre.symphony.domain.entities.Post
 import com.michaellaguerre.symphony.ui.SpacingItemDecorator
 import com.michaellaguerre.symphony.ui.adapters.CommentsAdapter
-import com.michaellaguerre.symphony.ui.viewmodels.AuthorDetailsViewModel
 import com.michaellaguerre.symphony.ui.viewmodels.PostDetailsViewModel
 import javax.inject.Inject
 
@@ -33,6 +31,8 @@ class PostDetailsFragment : BaseFragment() {
     // View binding
     private lateinit var binding: PostDetailsFragmentBinding
 
+    private val args: PostDetailsFragmentArgs by navArgs()
+
 
     //**********************************************************************************************
     // LIFECYCLE
@@ -42,10 +42,8 @@ class PostDetailsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
 
-        val post = arguments?.getParcelable<Post>(ARG_POST)!!
-
         // View model
-        val factory = PostDetailsViewModel.Factory(post)
+        val factory = PostDetailsViewModel.Factory(args.post)
         viewModel = ViewModelProvider(this, factory).get(PostDetailsViewModel::class.java)
     }
 
@@ -71,10 +69,10 @@ class PostDetailsFragment : BaseFragment() {
         appComponent.inject(viewModel)
 
         // Configure observers
-        viewModel.comments.observe(this, ::handleSuccessComments)
-        viewModel.failure.observe(this, ::handleFailure)
+        viewModel.comments.observe(viewLifecycleOwner, ::displayComments)
+        viewModel.failure.observe(viewLifecycleOwner, ::handleFailure)
 
-        viewModel.post.observe(this, ::handleSuccessPost)
+        viewModel.post.observe(viewLifecycleOwner, ::displayPost)
 
 
         configureRecyclerView()
@@ -116,7 +114,7 @@ class PostDetailsFragment : BaseFragment() {
     //**********************************************************************************************
 
 
-    private fun handleSuccessComments(comments: List<Comment>?) {
+    private fun displayComments(comments: List<Comment>?) {
 
         commentsAdapter.collection = comments.orEmpty()
 
@@ -127,7 +125,7 @@ class PostDetailsFragment : BaseFragment() {
 
     }
 
-    private fun handleSuccessPost(post: Post) {
+    private fun displayPost(post: Post) {
 
     }
 
@@ -137,20 +135,4 @@ class PostDetailsFragment : BaseFragment() {
         binding.recyclerView.gone()
         binding.noData.visible()
     }
-
-
-    //**********************************************************************************************
-    // COMPANION OBJECT
-    //**********************************************************************************************
-
-    companion object {
-
-        const val ARG_POST = "arg_post"
-
-        fun newInstance(post: Post) = PostDetailsFragment().apply {
-            arguments = bundleOf(ARG_POST to post)
-        }
-    }
-
-
 }

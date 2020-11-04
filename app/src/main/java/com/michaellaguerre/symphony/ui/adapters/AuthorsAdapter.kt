@@ -1,6 +1,7 @@
 package com.michaellaguerre.symphony.ui.adapters
 
 import android.view.ViewGroup
+import androidx.navigation.Navigator
 import androidx.recyclerview.widget.RecyclerView
 import com.michaellaguerre.symphony.core.extensions.loadFromUrl
 import com.michaellaguerre.symphony.domain.entities.Author
@@ -19,6 +20,9 @@ class AuthorsAdapter
     }
 
 
+    internal var clickListener: (Author) -> Unit = { _-> }
+
+
     //**********************************************************************************************
     // LIFECYCLE
     //**********************************************************************************************
@@ -28,7 +32,7 @@ class AuthorsAdapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        return holder.bind(collection[position])
+        return holder.bind(collection[position], clickListener)
     }
 
     override fun getItemCount() = collection.size
@@ -40,13 +44,11 @@ class AuthorsAdapter
 
     class ViewHolder(itemView: AuthorView) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(author: Author) {
+        fun bind(author: Author, clickListener: (Author) -> Unit) {
             itemView as AuthorView
             itemView.binding.authorNameTextView.text = author.name
             itemView.binding.authorAvatarImageView.loadFromUrl(author.avatarUrl)
-            itemView.setOnClickListener {
-                //TODO
-            }
+            itemView.setOnClickListener { clickListener(author) }
         }
     }
 }

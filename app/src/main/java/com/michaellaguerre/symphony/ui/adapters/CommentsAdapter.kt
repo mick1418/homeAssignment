@@ -49,9 +49,6 @@ class CommentsAdapter
             itemView.binding.commentDateTextView.text = comment.date
             itemView.binding.commentBodyTextView.text = comment.body
             itemView.binding.commentAvatarImageView.loadFromUrl(comment.avatarUrl)
-            itemView.setOnClickListener {
-                //TODO
-            }
         }
     }
 }

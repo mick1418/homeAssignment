@@ -5,7 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.extensions.gone
@@ -32,6 +35,9 @@ class AuthorDetailsFragment : BaseFragment() {
     private lateinit var binding: AuthorDetailsFragmentBinding
 
 
+    private val args: AuthorDetailsFragmentArgs by navArgs()
+
+
     //**********************************************************************************************
     // LIFECYCLE
     //**********************************************************************************************
@@ -39,6 +45,10 @@ class AuthorDetailsFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
+
+        // View model
+        val factory = AuthorDetailsViewModel.Factory(args.author)
+        viewModel = ViewModelProvider(this, factory).get(AuthorDetailsViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -46,7 +56,7 @@ class AuthorDetailsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = com.michaellaguerre.symphony.databinding.AuthorDetailsFragmentBinding.inflate(
+        binding = AuthorDetailsFragmentBinding.inflate(
             inflater,
             container,
             false
@@ -56,23 +66,23 @@ class AuthorDetailsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AuthorDetailsViewModel::class.java)
 
         // Injecting the viewModel (do not know if it should be there...)
         appComponent.inject(viewModel)
 
         // Configure observers
-        viewModel.posts.observe(this, ::handleSuccessPosts)
-        viewModel.failure.observe(this, ::handleFailure)
+        viewModel.posts.observe(viewLifecycleOwner, ::displayPosts)
+        viewModel.failure.observe(viewLifecycleOwner, ::handleFailure)
 
-        viewModel.author.observe(this, ::handleSuccessAuthor)
+        viewModel.author.observe(viewLifecycleOwner, ::displayAuthor)
 
 
         configureRecyclerView()
 
         // Start loading authors list
-        viewModel.loadPostsForAuthor(1)
-        viewModel.loadAuthor(1)
+        viewModel.loadPostsForAuthor(viewModel.author.value?.id!!)
+
+        displayAuthor(viewModel.author.value!!)
     }
 
 
@@ -86,6 +96,14 @@ class AuthorDetailsFragment : BaseFragment() {
             layoutManager = GridLayoutManager(context, 1)
             adapter = postsAdapter
 
+            postsAdapter.clickListener = { post ->
+                findNavController().navigate(
+                    AuthorDetailsFragmentDirections.actionAuthorDetailsFragmentToPostDetailsFragment(
+                        post
+                    )
+                )
+            }
+
             val recyclerViewPadding =
                 resources.getDimensionPixelSize(R.dimen.authors_fragment_grid_spacing)
             val spacingDecorator = SpacingItemDecorator(
@@ -96,9 +114,6 @@ class AuthorDetailsFragment : BaseFragment() {
             )
             addItemDecoration(spacingDecorator)
         }
-//        moviesAdapter.clickListener = { movie, navigationExtras ->
-//            navigator.showMovieDetails(activity!!, movie, navigationExtras)
-//        }
     }
 
 
@@ -107,7 +122,7 @@ class AuthorDetailsFragment : BaseFragment() {
     //**********************************************************************************************
 
 
-    private fun handleSuccessPosts(posts: List<Post>?) {
+    private fun displayPosts(posts: List<Post>?) {
 
         postsAdapter.collection = posts.orEmpty()
 
@@ -118,14 +133,11 @@ class AuthorDetailsFragment : BaseFragment() {
 
     }
 
-    private fun handleSuccessAuthor(author: Author) {
-
+    private fun displayAuthor(author: Author) {
         binding.authorDetailsView.binding.authorAvatarImageView.loadFromUrl(author.avatarUrl)
         binding.authorDetailsView.binding.authorNameTextView.text = author.name
         binding.authorDetailsView.binding.authorEmailTextView.text = author.email
         binding.authorDetailsView.binding.authorNickNameTextView.text = author.userName
-
-
     }
 
     private fun handleFailure(failure: Failure?) {
@@ -134,15 +146,4 @@ class AuthorDetailsFragment : BaseFragment() {
         binding.recyclerView.gone()
         binding.noData.visible()
     }
-
-
-    //**********************************************************************************************
-    // COMPANION OBJECT
-    //**********************************************************************************************
-
-    companion object {
-        fun newInstance() = AuthorDetailsFragment()
-    }
-
-
 }
