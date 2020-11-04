@@ -3,7 +3,9 @@ package com.michaellaguerre.symphony.core.di.modules
 import android.content.Context
 import com.michaellaguerre.symphony.SymphonyApplication
 import com.michaellaguerre.symphony.data.network.NetworkAuthorsRepository
+import com.michaellaguerre.symphony.data.network.NetworkPostsRepository
 import com.michaellaguerre.symphony.data.repositories.AuthorsRepository
+import com.michaellaguerre.symphony.data.repositories.PostsRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -22,5 +24,9 @@ class ApplicationModule(private val application: SymphonyApplication) {
     @Provides
     @Singleton
     fun provideAuthorsRepository(dataSource: NetworkAuthorsRepository): AuthorsRepository = dataSource
+
+    @Provides
+    @Singleton
+    fun providePostsRepository(dataSource: NetworkPostsRepository): PostsRepository = dataSource
 
 }

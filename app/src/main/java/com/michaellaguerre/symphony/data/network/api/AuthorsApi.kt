@@ -10,7 +10,7 @@ import retrofit2.http.Query
 
 interface AuthorsApi {
 
-    @GET("authors")
+    @GET("authors?_sort=name&_order=asc")
     fun getAuthors(
         @Query("_page") page: Int = DEFAULT_PAGE_NUMBER,
         @Query("_limit") limit: Int = DEFAULT_PAGE_SIZE

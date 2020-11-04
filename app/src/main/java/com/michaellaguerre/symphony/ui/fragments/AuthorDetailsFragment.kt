@@ -9,25 +9,27 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.extensions.gone
+import com.michaellaguerre.symphony.core.extensions.loadFromUrl
 import com.michaellaguerre.symphony.core.extensions.visible
 import com.michaellaguerre.symphony.core.platform.BaseFragment
 import com.michaellaguerre.symphony.core.utils.Failure
-import com.michaellaguerre.symphony.databinding.AuthorsFragmentBinding
+import com.michaellaguerre.symphony.databinding.AuthorDetailsFragmentBinding
 import com.michaellaguerre.symphony.domain.entities.Author
+import com.michaellaguerre.symphony.domain.entities.Post
 import com.michaellaguerre.symphony.ui.SpacingItemDecorator
-import com.michaellaguerre.symphony.ui.adapters.AuthorsAdapter
-import com.michaellaguerre.symphony.ui.viewmodels.AuthorsViewModel
+import com.michaellaguerre.symphony.ui.adapters.PostsAdapter
+import com.michaellaguerre.symphony.ui.viewmodels.AuthorDetailsViewModel
 import javax.inject.Inject
 
-class AuthorsFragment : BaseFragment() {
+class AuthorDetailsFragment : BaseFragment() {
 
     @Inject
-    lateinit var authorsAdapter: AuthorsAdapter
+    lateinit var postsAdapter: PostsAdapter
 
-    private lateinit var viewModel: AuthorsViewModel
+    private lateinit var viewModel: AuthorDetailsViewModel
 
     // View binding
-    private lateinit var binding: AuthorsFragmentBinding
+    private lateinit var binding: AuthorDetailsFragmentBinding
 
 
     //**********************************************************************************************
@@ -44,26 +46,33 @@ class AuthorsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = AuthorsFragmentBinding.inflate(inflater, container, false)
+        binding = com.michaellaguerre.symphony.databinding.AuthorDetailsFragmentBinding.inflate(
+            inflater,
+            container,
+            false
+        )
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AuthorsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AuthorDetailsViewModel::class.java)
 
         // Injecting the viewModel (do not know if it should be there...)
         appComponent.inject(viewModel)
 
         // Configure observers
-        viewModel.authors.observe(this, ::handleSuccess)
+        viewModel.posts.observe(this, ::handleSuccessPosts)
         viewModel.failure.observe(this, ::handleFailure)
+
+        viewModel.author.observe(this, ::handleSuccessAuthor)
 
 
         configureRecyclerView()
 
         // Start loading authors list
-        viewModel.loadAuthors()
+        viewModel.loadPostsForAuthor(1)
+        viewModel.loadAuthor(1)
     }
 
 
@@ -74,11 +83,17 @@ class AuthorsFragment : BaseFragment() {
 
     private fun configureRecyclerView() {
         binding.recyclerView.apply {
-            layoutManager = GridLayoutManager(context, 3)
-            adapter = authorsAdapter
+            layoutManager = GridLayoutManager(context, 1)
+            adapter = postsAdapter
 
-            val recyclerViewPadding = resources.getDimensionPixelSize(R.dimen.authors_fragment_grid_spacing)
-            val spacingDecorator =  SpacingItemDecorator(recyclerViewPadding, SpacingItemDecorator.GRIDVIEW, false, false)
+            val recyclerViewPadding =
+                resources.getDimensionPixelSize(R.dimen.authors_fragment_grid_spacing)
+            val spacingDecorator = SpacingItemDecorator(
+                recyclerViewPadding,
+                SpacingItemDecorator.GRIDVIEW,
+                false,
+                false
+            )
             addItemDecoration(spacingDecorator)
         }
 //        moviesAdapter.clickListener = { movie, navigationExtras ->
@@ -91,14 +106,25 @@ class AuthorsFragment : BaseFragment() {
     // ACTIONS
     //**********************************************************************************************
 
-    private fun handleSuccess(authors: List<Author>?) {
 
-        authorsAdapter.collection = authors.orEmpty()
+    private fun handleSuccessPosts(posts: List<Post>?) {
+
+        postsAdapter.collection = posts.orEmpty()
 
         binding.recyclerView.visible()
         binding.noData.gone()
 
-        Log.e("RESULT", "Authors: " + authors?.size)
+        Log.e("RESULT", "Authors: " + posts?.size)
+
+    }
+
+    private fun handleSuccessAuthor(author: Author) {
+
+        binding.authorDetailsView.binding.authorAvatarImageView.loadFromUrl(author.avatarUrl)
+        binding.authorDetailsView.binding.authorNameTextView.text = author.name
+        binding.authorDetailsView.binding.authorEmailTextView.text = author.email
+        binding.authorDetailsView.binding.authorNickNameTextView.text = author.userName
+
 
     }
 
@@ -115,7 +141,7 @@ class AuthorsFragment : BaseFragment() {
     //**********************************************************************************************
 
     companion object {
-        fun newInstance() = AuthorsFragment()
+        fun newInstance() = AuthorDetailsFragment()
     }
 
 

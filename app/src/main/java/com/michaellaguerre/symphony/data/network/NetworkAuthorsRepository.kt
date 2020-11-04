@@ -3,6 +3,8 @@ package com.michaellaguerre.symphony.data.network
 import com.michaellaguerre.symphony.core.platform.NetworkAvailabilityChecker
 import com.michaellaguerre.symphony.core.utils.Either
 import com.michaellaguerre.symphony.core.utils.Failure
+import com.michaellaguerre.symphony.data.network.entities.AuthorEntity
+import com.michaellaguerre.symphony.data.network.entities.PostEntity
 import com.michaellaguerre.symphony.data.network.services.AuthorsService
 import com.michaellaguerre.symphony.data.repositories.AuthorsRepository
 import com.michaellaguerre.symphony.domain.entities.Author
@@ -23,7 +25,11 @@ class NetworkAuthorsRepository
     }
 
     override fun getAuthorDetail(authorId: Int): Either<Failure, Author> {
-        TODO("Not yet implemented")
+        return request(
+            call = service.getAuthor(authorId),
+            transformation = { it -> it.toAuthor() },
+            defaultResult = AuthorEntity.empty
+        )
     }
 
 }

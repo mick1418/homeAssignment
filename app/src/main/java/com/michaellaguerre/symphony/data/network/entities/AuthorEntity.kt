@@ -14,12 +14,12 @@ data class AuthorEntity(
     /**
      * Conversion to domain entity.
      */
-    fun toAuthor() = Author(
-        id,
-        name,
-        userName,
-        email,
-        avatarUrl,
-        address
-    )
+    fun toAuthor() = Author(id, name, userName, email, avatarUrl, address)
+
+    companion object {
+        val empty = AuthorEntity(
+            0, "", "", "",
+            "", AddressEntity("", "")
+        )
+    }
 }
