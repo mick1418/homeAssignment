@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.michaellaguerre.symphony.core.di.ApplicationComponent
 import com.michaellaguerre.symphony.data.network.entities.AuthorEntity
 import com.michaellaguerre.symphony.data.network.services.AuthorsService
+import com.michaellaguerre.symphony.ui.fragments.AuthorDetailsFragment
 import com.michaellaguerre.symphony.ui.fragments.AuthorsFragment
+import com.michaellaguerre.symphony.ui.fragments.PostDetailsFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(
                 R.id.container,
-                AuthorsFragment.newInstance()
+                PostDetailsFragment.newInstance()
             ).commitNow()
         }
     }

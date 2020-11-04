@@ -10,4 +10,8 @@
     <!-- Author details view -->
     <dimen name="author_details_view_avatar_size">92dp</dimen>
     <dimen name="author_details_view_padding">24dp</dimen>
+
+    <!-- Comment view -->
+    <dimen name="comment_view_padding">8dp</dimen>
+    <dimen name="comment_view_avatar_size">54dp</dimen>
 </resources>
