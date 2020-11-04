@@ -5,44 +5,98 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.michaellaguerre.symphony.R
-import com.michaellaguerre.symphony.SymphonyApplication
+import com.michaellaguerre.symphony.core.extensions.gone
+import com.michaellaguerre.symphony.core.extensions.visible
+import com.michaellaguerre.symphony.core.platform.BaseFragment
 import com.michaellaguerre.symphony.core.utils.Failure
+import com.michaellaguerre.symphony.databinding.AuthorsFragmentBinding
 import com.michaellaguerre.symphony.domain.entities.Author
+import com.michaellaguerre.symphony.ui.SpacingItemDecorator
+import com.michaellaguerre.symphony.ui.adapters.AuthorsAdapter
 import com.michaellaguerre.symphony.ui.viewmodels.AuthorsViewModel
+import javax.inject.Inject
 
-class AuthorsFragment : Fragment() {
+class AuthorsFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = AuthorsFragment()
-    }
+    @Inject
+    lateinit var authorsAdapter: AuthorsAdapter
 
     private lateinit var viewModel: AuthorsViewModel
+
+    // View binding
+    private lateinit var binding: AuthorsFragmentBinding
+
+
+    //**********************************************************************************************
+    // LIFECYCLE
+    //**********************************************************************************************
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.authors_fragment, container, false)
+        binding = AuthorsFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(AuthorsViewModel::class.java)
-        // TODO: Use the ViewModel
-        (requireActivity().applicationContext as SymphonyApplication).appComponent.inject(viewModel)
 
+        // Injecting the viewModel (do not know if it should be there...)
+        appComponent.inject(viewModel)
 
-        viewModel.authors.observe(this, ::renderAuthorsList)
+        // Configure observers
+        viewModel.authors.observe(this, ::handleSuccess)
         viewModel.failure.observe(this, ::handleFailure)
 
+
+        configureRecyclerView()
+
+        // Start loading authors list
         viewModel.loadAuthors()
     }
 
-    private fun renderAuthorsList(authors: List<Author>?) {
+
+    //**********************************************************************************************
+    // CONFIGURATION
+    //**********************************************************************************************
+
+
+    private fun configureRecyclerView() {
+        binding.recyclerView.apply {
+            layoutManager = GridLayoutManager(context, 3)
+            adapter = authorsAdapter
+
+            val recyclerViewPadding = resources.getDimensionPixelSize(R.dimen.authors_fragment_grid_spacing)
+            val spacingDecorator =  SpacingItemDecorator(recyclerViewPadding, SpacingItemDecorator.GRIDVIEW, true, true)
+            addItemDecoration(spacingDecorator)
+        }
+//        moviesAdapter.clickListener = { movie, navigationExtras ->
+//            navigator.showMovieDetails(activity!!, movie, navigationExtras)
+//        }
+    }
+
+
+    //**********************************************************************************************
+    // ACTIONS
+    //**********************************************************************************************
+
+    private fun handleSuccess(authors: List<Author>?) {
+
+        authorsAdapter.collection = authors.orEmpty()
+
+        binding.recyclerView.visible()
+        binding.noData.gone()
 
         Log.e("RESULT", "Authors: " + authors?.size)
 
@@ -50,6 +104,18 @@ class AuthorsFragment : Fragment() {
 
     private fun handleFailure(failure: Failure?) {
         Log.e("RESULT", "Error: " + failure?.toString())
+
+        binding.recyclerView.gone()
+        binding.noData.visible()
+    }
+
+
+    //**********************************************************************************************
+    // COMPANION OBJECT
+    //**********************************************************************************************
+
+    companion object {
+        fun newInstance() = AuthorsFragment()
     }
 
 

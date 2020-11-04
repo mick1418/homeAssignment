@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AuthorsName">
+        <item name="android:background">?colorPrimary</item>
+        <item name="android:textAppearance">@style/AuthorsNameTextAppearance</item>
+        <item name="android:minLines">2</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:padding">@dimen/author_view_name_padding</item>
+    </style>
+
+    <style name="AuthorsNameTextAppearance" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">@dimen/author_view_name_text_size</item>
+        <item name="android:textColor">?colorOnPrimary</item>
+    </style>
+</resources>

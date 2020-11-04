@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Symphony</string>
+    <string name="no_data">Nothing to display for now</string>
 </resources>

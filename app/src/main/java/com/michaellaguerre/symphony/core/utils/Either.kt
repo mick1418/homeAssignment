@@ -8,6 +8,8 @@ package com.michaellaguerre.symphony.core.utils
  * Functional programming convention dictates that [Left] is used for "failure"
  * and [Right] is used for "success".
  *
+ * https://proandroiddev.com/kotlins-nothing-type-946de7d464fb
+ *
  * @see Left
  * @see Right
  */
