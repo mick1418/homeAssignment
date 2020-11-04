@@ -1,7 +1,8 @@
 package com.michaellaguerre.symphony.ui.viewmodels
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.michaellaguerre.symphony.core.platform.BaseViewModel
 import com.michaellaguerre.symphony.domain.entities.Author
 import com.michaellaguerre.symphony.domain.entities.Post
@@ -9,18 +10,30 @@ import com.michaellaguerre.symphony.domain.interactors.GetAuthorDetail
 import com.michaellaguerre.symphony.domain.interactors.GetAuthorPosts
 import javax.inject.Inject
 
-class AuthorDetailsViewModel : BaseViewModel() {
+class AuthorDetailsViewModel(author: Author) : BaseViewModel() {
 
     @Inject
     lateinit var getAuthorDetail: GetAuthorDetail
+
     @Inject
     lateinit var getAuthorPosts: GetAuthorPosts
 
-    private val _author: MutableLiveData<Author> = MutableLiveData()
-    val author: LiveData<Author> = _author
+    var author: MutableLiveData<Author> = MutableLiveData()
+    var posts: MutableLiveData<List<Post>> = MutableLiveData()
 
-    private val _posts: MutableLiveData<List<Post>> = MutableLiveData()
-    val posts: LiveData<List<Post>> = _posts
+
+    //**********************************************************************************************
+    // INITIALIZATION
+    //**********************************************************************************************
+
+    init {
+        this.author = MutableLiveData(author)
+    }
+
+
+    //**********************************************************************************************
+    // ACTIONS
+    //**********************************************************************************************
 
     fun loadAuthor(authorId: Int) = getAuthorDetail(GetAuthorDetail.Params(authorId)) {
         it.fold(
@@ -37,10 +50,29 @@ class AuthorDetailsViewModel : BaseViewModel() {
     }
 
     private fun handleResultAuthor(author: Author) {
-        _author.value = author
+        this.author.postValue(author)
     }
 
     private fun handleResultPosts(posts: List<Post>) {
-        _posts.value = posts
+        this.posts.postValue(posts)
+    }
+
+
+    //**********************************************************************************************
+    // FACTORY
+    //**********************************************************************************************
+
+    class Factory(private val author: Author) : ViewModelProvider.Factory {
+
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            try {
+                return modelClass.getConstructor(Author::class.java).newInstance(author)
+            } catch (e: Exception) {
+                throw RuntimeException(
+                    "Cannot create instance of$modelClass: it should have a (val author: Author) constructor",
+                    e
+                )
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.michaellaguerre.symphony.R
 
 /**
  * Helper function used to load an url into an [ImageView] via Glide, with a crossfade animation
@@ -13,6 +14,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 fun ImageView.loadFromUrl(url: String) =
     Glide.with(this.context.applicationContext)
         .load(url)
+        .error(R.drawable.ic_placeholder_picture)
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(this)
 

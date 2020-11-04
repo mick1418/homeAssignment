@@ -1,7 +1,8 @@
 package com.michaellaguerre.symphony.ui.viewmodels
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.michaellaguerre.symphony.core.platform.BaseViewModel
 import com.michaellaguerre.symphony.domain.entities.Comment
 import com.michaellaguerre.symphony.domain.entities.Post
@@ -9,7 +10,7 @@ import com.michaellaguerre.symphony.domain.interactors.GetPostComments
 import com.michaellaguerre.symphony.domain.interactors.GetPostDetail
 import javax.inject.Inject
 
-class PostDetailsViewModel : BaseViewModel() {
+class PostDetailsViewModel(post: Post) : BaseViewModel() {
 
     @Inject
     lateinit var getPostDetail: GetPostDetail
@@ -17,11 +18,22 @@ class PostDetailsViewModel : BaseViewModel() {
     @Inject
     lateinit var getPostComments: GetPostComments
 
-    private val _post: MutableLiveData<Post> = MutableLiveData()
-    val post: LiveData<Post> = _post
 
-    private val _comments: MutableLiveData<List<Comment>> = MutableLiveData()
-    val comments: LiveData<List<Comment>> = _comments
+    var post: MutableLiveData<Post> = MutableLiveData()
+    var comments: MutableLiveData<List<Comment>> = MutableLiveData()
+
+
+    //**********************************************************************************************
+    // INITIALIZATION
+    //**********************************************************************************************
+
+    init {
+        this.post = MutableLiveData(post)
+    }
+
+    //**********************************************************************************************
+    // ACTIONS
+    //**********************************************************************************************
 
     fun loadPost(postId: Int) = getPostDetail(GetPostDetail.Params(postId)) {
         it.fold(
@@ -38,10 +50,29 @@ class PostDetailsViewModel : BaseViewModel() {
     }
 
     private fun handleResultPost(post: Post) {
-        _post.value = post
+        this.post.postValue(post)
     }
 
     private fun handleResultComments(comments: List<Comment>) {
-        _comments.value = comments
+        this.comments.postValue(comments)
+    }
+
+
+    //**********************************************************************************************
+    // FACTORY
+    //**********************************************************************************************
+
+    class Factory(private val post: Post) : ViewModelProvider.Factory {
+
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            try {
+                return modelClass.getConstructor(Post::class.java).newInstance(post)
+            } catch (e: Exception) {
+                throw RuntimeException(
+                    "Cannot create instance of$modelClass: it should have a (val post: Post) constructor",
+                    e
+                )
+            }
+        }
     }
 }

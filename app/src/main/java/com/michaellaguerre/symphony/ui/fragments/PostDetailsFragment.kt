@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.michaellaguerre.symphony.R
@@ -40,6 +41,12 @@ class PostDetailsFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
+
+        val post = arguments?.getParcelable<Post>(ARG_POST)!!
+
+        // View model
+        val factory = PostDetailsViewModel.Factory(post)
+        viewModel = ViewModelProvider(this, factory).get(PostDetailsViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -57,7 +64,8 @@ class PostDetailsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PostDetailsViewModel::class.java)
+
+
 
         // Injecting the viewModel (do not know if it should be there...)
         appComponent.inject(viewModel)
@@ -72,8 +80,8 @@ class PostDetailsFragment : BaseFragment() {
         configureRecyclerView()
 
         // Start loading comments list
-        viewModel.loadCommentsForPost(1)
-        viewModel.loadPost(1)
+        viewModel.loadCommentsForPost(viewModel.post.value?.id!!)
+        viewModel.loadPost(viewModel.post.value?.id!!)
     }
 
 
@@ -136,7 +144,12 @@ class PostDetailsFragment : BaseFragment() {
     //**********************************************************************************************
 
     companion object {
-        fun newInstance() = PostDetailsFragment()
+
+        const val ARG_POST = "arg_post"
+
+        fun newInstance(post: Post) = PostDetailsFragment().apply {
+            arguments = bundleOf(ARG_POST to post)
+        }
     }
 
 
