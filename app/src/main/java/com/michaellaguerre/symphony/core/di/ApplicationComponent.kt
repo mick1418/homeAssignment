@@ -3,6 +3,7 @@ package com.michaellaguerre.symphony.core.di
 import com.michaellaguerre.symphony.MainActivity
 import com.michaellaguerre.symphony.SymphonyApplication
 import com.michaellaguerre.symphony.core.di.modules.ApplicationModule
+import com.michaellaguerre.symphony.core.di.modules.DatabaseModule
 import com.michaellaguerre.symphony.core.di.modules.NetworkModule
 import com.michaellaguerre.symphony.ui.fragments.AuthorDetailsFragment
 import com.michaellaguerre.symphony.ui.fragments.AuthorsFragment
@@ -14,7 +15,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ApplicationModule::class, NetworkModule::class])
+@Component(modules = [ApplicationModule::class, NetworkModule::class, DatabaseModule::class])
 interface ApplicationComponent {
 
     // Application

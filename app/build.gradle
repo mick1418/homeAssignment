@@ -49,6 +49,7 @@ android {
 dependencies {
 
     def jetpack_navigation_version = "2.3.1"
+    def jetpack_room_version = "2.2.5"
     def glide_version = "4.11.0"
     def retrofit_version = "2.9.0"
     def dagger_version = "2.29.1"
@@ -73,9 +74,14 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
-    // Jetpack navigation
+    // Jetpack Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$jetpack_navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$jetpack_navigation_version"
+
+    // Jetpack Room
+    implementation "androidx.room:room-runtime:$jetpack_room_version"
+    kapt "androidx.room:room-compiler:$jetpack_room_version"
+    implementation "androidx.room:room-ktx:$jetpack_room_version"
 
     // Testing
     testImplementation 'junit:junit:4.13.1'
