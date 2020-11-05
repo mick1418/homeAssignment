@@ -1,29 +1,42 @@
 package com.michaellaguerre.symphony.data.repositories
 
+import com.michaellaguerre.symphony.core.platform.NetworkAvailabilityChecker
 import com.michaellaguerre.symphony.core.utils.Either
 import com.michaellaguerre.symphony.core.utils.Failure
+import com.michaellaguerre.symphony.data.database.daos.AuthorDao
+import com.michaellaguerre.symphony.data.entities.AuthorEntity
+import com.michaellaguerre.symphony.data.network.services.AuthorsService
 import com.michaellaguerre.symphony.domain.entities.Author
+import javax.inject.Inject
 
-/**
- * Abstraction interface used to separate the domain from the actual database implementations
- * (Room database or Retrofit service).
- *
- * This repository is in charge of handling everything related to Author.
- */
-interface AuthorsRepository {
+class AuthorsRepository
+@Inject constructor(
+    private val service: AuthorsService,
+    private val dao: AuthorDao,
+    networkAvailabilityChecker: NetworkAvailabilityChecker
+) : BaseRepository(networkAvailabilityChecker) {
 
-    /**
-     * Retrieve the list of [Author].
-     *
-     * @return an [Either] containing either a [Failure] if something wrong happened, or a List of [Author]
-     */
-    fun getAuthors(): Either<Failure, List<Author>>
+    fun getAuthors(): Either<Failure, List<Author>> {
+        return request(
+            call = service.getAuthors(),
+            transformation = {
 
-    /**
-     * Retrieve the details of a given [Author].
-     *
-     * @param authorId the id of the [Author] we want to fetch
-     * @return an [Either] containing either a [Failure] if something wrong happened, or an [Author]
-     */
-    fun getAuthorDetail(authorId: Int): Either<Failure, Author>
+                // Insert into database
+                dao.insertAll(it)
+
+                // Convert to domain entity
+                it.map { authorEntity -> authorEntity.toAuthor() }
+            },
+            defaultResult = emptyList()
+        )
+    }
+
+    fun getAuthorDetail(authorId: Int): Either<Failure, Author> {
+        return request(
+            call = service.getAuthor(authorId),
+            transformation = { it -> it.toAuthor() },
+            defaultResult = AuthorEntity.empty
+        )
+    }
+
 }

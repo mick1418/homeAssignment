@@ -2,13 +2,15 @@ package com.michaellaguerre.symphony.data.database.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.michaellaguerre.symphony.data.database.entities.AuthorEntity
-import com.michaellaguerre.symphony.data.database.entities.AuthorWithPosts
-import com.michaellaguerre.symphony.data.database.entities.PostEntity
-import com.michaellaguerre.symphony.data.database.entities.PostWithComments
+import com.michaellaguerre.symphony.data.database.PostWithComments
+import com.michaellaguerre.symphony.data.entities.PostEntity
 
 @Dao
 interface PostDao {
+
+    //**********************************************************************************************
+    // READ
+    //**********************************************************************************************
 
     @Query("SELECT * FROM posts")
     fun getAll(): LiveData<List<PostEntity>>
@@ -16,11 +18,29 @@ interface PostDao {
     @Query("SELECT * FROM posts WHERE id LIKE :id LIMIT 1")
     fun findById(id: Int): LiveData<PostEntity>
 
-    @Insert
-    fun insertAll(vararg posts: PostEntity)
+
+    //**********************************************************************************************
+    // INSERT
+    //**********************************************************************************************
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(posts: List<PostEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(post: PostEntity)
+
+
+    //**********************************************************************************************
+    // DELETE
+    //**********************************************************************************************
 
     @Delete
     fun delete(post: PostEntity)
+
+
+    //**********************************************************************************************
+    // CUSTOM QUERIES
+    //**********************************************************************************************
 
     @Transaction
     @Query("SELECT * FROM posts WHERE id LIKE :postId LIMIT 1")

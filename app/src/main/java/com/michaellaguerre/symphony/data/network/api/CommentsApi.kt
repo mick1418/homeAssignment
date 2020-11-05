@@ -2,7 +2,7 @@ package com.michaellaguerre.symphony.data.network.api
 
 import com.michaellaguerre.symphony.core.dependencies.Constants.Api.DEFAULT_PAGE_NUMBER
 import com.michaellaguerre.symphony.core.dependencies.Constants.Api.DEFAULT_PAGE_SIZE
-import com.michaellaguerre.symphony.data.network.entities.CommentEntity
+import com.michaellaguerre.symphony.data.entities.CommentEntity
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

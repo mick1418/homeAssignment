@@ -2,9 +2,13 @@ package com.michaellaguerre.symphony.core.di.modules
 
 import android.content.Context
 import com.michaellaguerre.symphony.SymphonyApplication
-import com.michaellaguerre.symphony.data.network.NetworkAuthorsRepository
-import com.michaellaguerre.symphony.data.network.NetworkCommentsRepository
-import com.michaellaguerre.symphony.data.network.NetworkPostsRepository
+import com.michaellaguerre.symphony.core.platform.NetworkAvailabilityChecker
+import com.michaellaguerre.symphony.data.database.daos.AuthorDao
+import com.michaellaguerre.symphony.data.database.daos.CommentDao
+import com.michaellaguerre.symphony.data.database.daos.PostDao
+import com.michaellaguerre.symphony.data.network.services.AuthorsService
+import com.michaellaguerre.symphony.data.network.services.CommentsService
+import com.michaellaguerre.symphony.data.network.services.PostsService
 import com.michaellaguerre.symphony.data.repositories.AuthorsRepository
 import com.michaellaguerre.symphony.data.repositories.CommentsRepository
 import com.michaellaguerre.symphony.data.repositories.PostsRepository
@@ -23,16 +27,35 @@ class ApplicationModule(private val application: SymphonyApplication) {
     fun provideApplicationContext(): Context = application
 
 
-    @Provides
-    @Singleton
-    fun provideAuthorsRepository(dataSource: NetworkAuthorsRepository): AuthorsRepository = dataSource
+    //**********************************************************************************************
+    // REPOSITORIES
+    //**********************************************************************************************
 
-    @Provides
     @Singleton
-    fun providePostsRepository(dataSource: NetworkPostsRepository): PostsRepository = dataSource
+    @Provides
+    fun provideAuthorsRepository(
+        remoteDataSource: AuthorsService,
+        localDataSource: AuthorDao,
+        networkAvailabilityChecker: NetworkAvailabilityChecker
+    ): AuthorsRepository =
+        AuthorsRepository(remoteDataSource, localDataSource, networkAvailabilityChecker)
 
-    @Provides
     @Singleton
-    fun provideCommentsRepository(dataSource: NetworkCommentsRepository): CommentsRepository = dataSource
+    @Provides
+    fun providePostsRepository(
+        remoteDataSource: PostsService,
+        localDataSource: PostDao,
+        networkAvailabilityChecker: NetworkAvailabilityChecker
+    ): PostsRepository =
+        PostsRepository(remoteDataSource, localDataSource, networkAvailabilityChecker)
+
+    @Singleton
+    @Provides
+    fun provideCommentsRepository(
+        remoteDataSource: CommentsService,
+        localDataSource: CommentDao,
+        networkAvailabilityChecker: NetworkAvailabilityChecker
+    ): CommentsRepository =
+        CommentsRepository(remoteDataSource, localDataSource, networkAvailabilityChecker)
 
 }

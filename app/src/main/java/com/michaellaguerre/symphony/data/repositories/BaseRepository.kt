@@ -1,17 +1,16 @@
-package com.michaellaguerre.symphony.data.network
+package com.michaellaguerre.symphony.data.repositories
 
 import com.michaellaguerre.symphony.core.platform.NetworkAvailabilityChecker
 import com.michaellaguerre.symphony.core.utils.Either
 import com.michaellaguerre.symphony.core.utils.Failure
 import retrofit2.Call
-import javax.inject.Inject
 
 /**
  * Base class used as the Repositories base class.
  * It will check if the network is available and create Failure if it isn't.
  */
-abstract class NetworkRequestHandler
-@Inject constructor(private val networkAvailabilityChecker: NetworkAvailabilityChecker) {
+abstract class BaseRepository
+constructor(private val networkAvailabilityChecker: NetworkAvailabilityChecker) {
 
 
     /**

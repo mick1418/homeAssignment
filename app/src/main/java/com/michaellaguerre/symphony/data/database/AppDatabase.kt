@@ -5,9 +5,9 @@ import androidx.room.RoomDatabase
 import com.michaellaguerre.symphony.data.database.daos.AuthorDao
 import com.michaellaguerre.symphony.data.database.daos.CommentDao
 import com.michaellaguerre.symphony.data.database.daos.PostDao
-import com.michaellaguerre.symphony.data.database.entities.AuthorEntity
-import com.michaellaguerre.symphony.data.database.entities.CommentEntity
-import com.michaellaguerre.symphony.data.database.entities.PostEntity
+import com.michaellaguerre.symphony.data.entities.AuthorEntity
+import com.michaellaguerre.symphony.data.entities.CommentEntity
+import com.michaellaguerre.symphony.data.entities.PostEntity
 
 @Database(
     entities = arrayOf(AuthorEntity::class, PostEntity::class, CommentEntity::class),

@@ -1,14 +1,17 @@
-package com.michaellaguerre.symphony.data.network.entities
+package com.michaellaguerre.symphony.data.entities
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.michaellaguerre.symphony.domain.entities.Post
 
+@Entity(tableName = "posts")
 data class PostEntity(
-    val id: Int,
-    val date: String,
-    val title: String,
-    val body: String,
-    val imageUrl: String,
-    val authorId: Int
+    @PrimaryKey val id: Int,
+    var date: String,
+    var title: String,
+    var body: String,
+    var imageUrl: String,
+    var authorId: Int
 ) {
 
     /**

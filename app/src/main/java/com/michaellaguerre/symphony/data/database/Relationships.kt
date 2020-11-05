@@ -1,7 +1,10 @@
-package com.michaellaguerre.symphony.data.database.entities
+package com.michaellaguerre.symphony.data.database
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.michaellaguerre.symphony.data.entities.AuthorEntity
+import com.michaellaguerre.symphony.data.entities.CommentEntity
+import com.michaellaguerre.symphony.data.entities.PostEntity
 
 data class AuthorWithPosts(
     @Embedded val author: AuthorEntity,

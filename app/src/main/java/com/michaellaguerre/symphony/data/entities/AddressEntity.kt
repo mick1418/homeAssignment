@@ -1,10 +1,10 @@
-package com.michaellaguerre.symphony.data.network.entities
+package com.michaellaguerre.symphony.data.entities
 
 import com.michaellaguerre.symphony.domain.entities.Address
 
 data class AddressEntity(
-    val latitude: String,
-    val longitude: String
+    var latitude: String,
+    var longitude: String
 ) {
 
     /**
