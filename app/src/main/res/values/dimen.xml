@@ -6,6 +6,7 @@
     <!-- Author view -->
     <dimen name="author_view_name_text_size">14sp</dimen>
     <dimen name="author_view_name_padding">8dp</dimen>
+    <dimen name="author_view_picto_padding">8dp</dimen>
 
     <!-- Author details view -->
     <dimen name="author_details_view_avatar_size">92dp</dimen>
