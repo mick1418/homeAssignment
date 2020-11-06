@@ -9,26 +9,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.michaellaguerre.symphony.R
-import com.michaellaguerre.symphony.core.extensions.gone
-import com.michaellaguerre.symphony.core.extensions.visible
 import com.michaellaguerre.symphony.core.platform.BaseFragment
-import com.michaellaguerre.symphony.core.utils.Failure
 import com.michaellaguerre.symphony.databinding.AuthorsFragmentBinding
-import com.michaellaguerre.symphony.domain.entities.Author
 import com.michaellaguerre.symphony.ui.SpacingItemDecorator
-import com.michaellaguerre.symphony.ui.adapters.AuthorsAdapter
+import com.michaellaguerre.symphony.ui.adapters.AuthorsPagingAdapter
+import com.michaellaguerre.symphony.ui.adapters.LoadingStateAdapter
 import com.michaellaguerre.symphony.ui.viewmodels.AuthorsViewModel
 import javax.inject.Inject
 
 class AuthorsFragment : BaseFragment() {
 
     @Inject
-    lateinit var authorsAdapter: AuthorsAdapter
+    lateinit var authorsAdapter: AuthorsPagingAdapter
 
     private lateinit var viewModel: AuthorsViewModel
 
     // View binding
-    private lateinit var binding: AuthorsFragmentBinding
+    private var _binding: AuthorsFragmentBinding? = null
+    private val binding get() = _binding!!
 
 
     //**********************************************************************************************
@@ -45,7 +43,7 @@ class AuthorsFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = AuthorsFragmentBinding.inflate(inflater, container, false)
+        _binding = AuthorsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -56,15 +54,20 @@ class AuthorsFragment : BaseFragment() {
         // Injecting the viewModel (do not know if it should be there...)
         appComponent.inject(viewModel)
 
-        // Configure observers
-        viewModel.authors.observe(viewLifecycleOwner, ::displayAuthors)
-        viewModel.failure.observe(viewLifecycleOwner, ::handleFailure)
-
-
         configureRecyclerView()
 
         // Start loading authors list
         viewModel.loadAuthors()
+
+        // Observe the authors list
+        viewModel.authors.observe(viewLifecycleOwner, { pagingData ->
+            authorsAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+        })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
@@ -75,13 +78,24 @@ class AuthorsFragment : BaseFragment() {
 
     private fun configureRecyclerView() {
         binding.recyclerView.apply {
-            layoutManager = GridLayoutManager(context, 3)
-            adapter = authorsAdapter
+            layoutManager = GridLayoutManager(context, 3).apply {
+//                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+//
+//                    override fun getSpanSize(position: Int): Int {
+//
+//                        Log.e("test", "item type: " + authorsAdapter.getItemViewType(position))
+//
+//                        return 1
+//                    }
+//                }
+            }
+
+            adapter = authorsAdapter.withLoadStateFooter(LoadingStateAdapter(authorsAdapter))
 
             authorsAdapter.clickListener = { author ->
 
                 findNavController().navigate(
-                    AuthorsFragmentDirections.actionAuthorsFragmentToAuthorDetailsFragment(author)
+                    AuthorsFragmentDirections.actionAuthorsFragmentToAuthorDetailsFragment(author!!)
                 )
             }
 
@@ -95,28 +109,5 @@ class AuthorsFragment : BaseFragment() {
             )
             addItemDecoration(spacingDecorator)
         }
-    }
-
-
-    //**********************************************************************************************
-    // ACTIONS
-    //**********************************************************************************************
-
-    private fun displayAuthors(authors: List<Author>?) {
-
-        authorsAdapter.collection = authors.orEmpty()
-
-        binding.recyclerView.visible()
-        binding.noData.gone()
-
-        Log.e("RESULT", "Authors: " + authors?.size)
-
-    }
-
-    private fun handleFailure(failure: Failure?) {
-        Log.e("RESULT", "Error: " + failure?.toString())
-
-        binding.recyclerView.gone()
-        binding.noData.visible()
     }
 }

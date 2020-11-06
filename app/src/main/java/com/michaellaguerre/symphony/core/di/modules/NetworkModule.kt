@@ -1,6 +1,7 @@
 package com.michaellaguerre.symphony.core.di.modules
 
 import com.michaellaguerre.symphony.core.dependencies.Constants
+import com.michaellaguerre.symphony.core.utils.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -25,6 +26,7 @@ class NetworkModule() {
             .baseUrl(Constants.RetrofitConfiguration.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
     }
 

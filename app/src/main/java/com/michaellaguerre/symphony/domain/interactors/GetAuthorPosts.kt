@@ -1,15 +1,19 @@
 package com.michaellaguerre.symphony.domain.interactors
 
-import com.michaellaguerre.symphony.core.interactors.UseCase
+import androidx.lifecycle.map
+import androidx.paging.map
 import com.michaellaguerre.symphony.data.repositories.PostsRepository
-import com.michaellaguerre.symphony.domain.entities.Post
 import javax.inject.Inject
 
 class GetAuthorPosts
-@Inject constructor(private val postsRepository: PostsRepository) :
-    UseCase<List<Post>, GetAuthorPosts.Params>() {
+@Inject constructor(private val postsRepository: PostsRepository) {
 
-    override suspend fun run(params: Params) = postsRepository.getPostForAuthor(params.authorId)
+    fun invoke(params: Params) = postsRepository.getPostsForAuthors(params.authorId)
+        .map { pagingData ->
+            pagingData.map { postEntity ->
+                postEntity.toPost()
+            }
+        }
 
     data class Params(val authorId: Int)
 }

@@ -19,6 +19,7 @@ class NetworkAvailabilityChecker
      *
      * @return true if the device is connected to wifi or cellular, false otherwise
      */
+    @Suppress("DEPRECATION")
     fun isNetworkAvailable(): Boolean {
 
         val connectivityManager =

@@ -6,6 +6,10 @@ import com.michaellaguerre.symphony.data.entities.AuthorEntity
 import com.michaellaguerre.symphony.data.entities.CommentEntity
 import com.michaellaguerre.symphony.data.entities.PostEntity
 
+
+/**
+ * A data class holding an author with all his posts
+ */
 data class AuthorWithPosts(
     @Embedded val author: AuthorEntity,
     @Relation(
@@ -15,6 +19,10 @@ data class AuthorWithPosts(
     val posts: List<PostEntity>
 )
 
+
+/**
+ * A data class holding a post with all its comments
+ */
 data class PostWithComments(
     @Embedded val post: PostEntity,
     @Relation(

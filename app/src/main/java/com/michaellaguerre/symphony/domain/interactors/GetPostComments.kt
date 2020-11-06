@@ -1,15 +1,19 @@
 package com.michaellaguerre.symphony.domain.interactors
 
-import com.michaellaguerre.symphony.core.interactors.UseCase
+import androidx.lifecycle.map
+import androidx.paging.map
 import com.michaellaguerre.symphony.data.repositories.CommentsRepository
-import com.michaellaguerre.symphony.domain.entities.Comment
 import javax.inject.Inject
 
 class GetPostComments
-@Inject constructor(private val commentsRepository: CommentsRepository) :
-    UseCase<List<Comment>, GetPostComments.Params>() {
+@Inject constructor(private val commentsRepository: CommentsRepository) {
 
-    override suspend fun run(params: Params) = commentsRepository.getCommentsForPost(params.postId)
+    fun invoke(params: Params) = commentsRepository.getCommentsForPost(params.postId)
+        .map { pagingData ->
+            pagingData.map { commentEntity ->
+                commentEntity.toComment()
+            }
+        }
 
     data class Params(val postId: Int)
 }

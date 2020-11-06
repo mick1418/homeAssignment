@@ -1,5 +1,7 @@
 package com.michaellaguerre.symphony.data.network.services
 
+import com.michaellaguerre.symphony.core.dependencies.Constants.Api.DEFAULT_PAGE_NUMBER
+import com.michaellaguerre.symphony.core.dependencies.Constants.Api.DEFAULT_AUTHORS_PAGE_SIZE
 import com.michaellaguerre.symphony.data.network.api.AuthorsApi
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -16,17 +18,17 @@ class AuthorsService
      *
      * The list is ordered alphabetically
      *
-     * @return a Call containing the list of [com.michaellaguerre.symphony.data.network.entities.AuthorEntity]
+     * @return a List of [com.michaellaguerre.symphony.data.network.entities.AuthorEntity]
      */
-    fun getAuthors() = authorsApi.getAuthors()
+    suspend fun getAuthors(pageNumber: Int = DEFAULT_PAGE_NUMBER, limit: Int = DEFAULT_AUTHORS_PAGE_SIZE) = authorsApi.getAuthors(pageNumber, limit)
 
     /**
      * Retrieve the detail of a given [com.michaellaguerre.symphony.data.network.entities.AuthorEntity].
      *
      * @param authorId the author's ID
      *
-     * @return a Call containing the [com.michaellaguerre.symphony.data.network.entities.AuthorEntity]
+     * @return an [com.michaellaguerre.symphony.data.network.entities.AuthorEntity]
      */
-    fun getAuthor(authorId: Int) = authorsApi.getAuthor(authorId)
+    suspend fun getAuthor(authorId: Int) = authorsApi.getAuthor(authorId)
 
 }

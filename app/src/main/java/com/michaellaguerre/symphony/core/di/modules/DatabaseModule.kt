@@ -3,9 +3,9 @@ package com.michaellaguerre.symphony.core.di.modules
 import android.content.Context
 import androidx.room.Room
 import com.michaellaguerre.symphony.data.database.AppDatabase
-import com.michaellaguerre.symphony.data.database.daos.AuthorDao
-import com.michaellaguerre.symphony.data.database.daos.CommentDao
-import com.michaellaguerre.symphony.data.database.daos.PostDao
+import com.michaellaguerre.symphony.data.database.daos.AuthorsDao
+import com.michaellaguerre.symphony.data.database.daos.CommentsDao
+import com.michaellaguerre.symphony.data.database.daos.PostsDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -25,39 +25,39 @@ class DatabaseModule() {
         return Room.databaseBuilder(
             context.applicationContext,
             AppDatabase::class.java, "room-database"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     /**
-     * Provides an instance of the [AuthorDao] from the Room database
+     * Provides an instance of the [AuthorsDao] from the Room database
      *
      * @param appDatabase the Room [AppDatabase]
-     * @return an instance of [AuthorDao]
+     * @return an instance of [AuthorsDao]
      */
     @Provides
-    fun provideAuthorDao(appDatabase: AppDatabase): AuthorDao {
+    fun provideAuthorsDao(appDatabase: AppDatabase): AuthorsDao {
         return appDatabase.authorDao()
     }
 
     /**
-     * Provides an instance of the [PostDao] from the Room database
+     * Provides an instance of the [PostsDao] from the Room database
      *
      * @param appDatabase the Room [AppDatabase]
-     * @return an instance of [PostDao]
+     * @return an instance of [PostsDao]
      */
     @Provides
-    fun providePostDao(appDatabase: AppDatabase): PostDao {
+    fun providePostsDao(appDatabase: AppDatabase): PostsDao {
         return appDatabase.postDao()
     }
 
     /**
-     * Provides an instance of the [CommentDao] from the Room database
+     * Provides an instance of the [CommentsDao] from the Room database
      *
      * @param appDatabase the Room [AppDatabase]
-     * @return an instance of [CommentDao]
+     * @return an instance of [CommentsDao]
      */
     @Provides
-    fun provideCommentDao(appDatabase: AppDatabase): CommentDao {
+    fun provideCommentsDao(appDatabase: AppDatabase): CommentsDao {
         return appDatabase.commentDao()
     }
 }

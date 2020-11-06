@@ -5,7 +5,9 @@ object Constants {
 
     object Api {
         const val DEFAULT_PAGE_NUMBER: Int = 1
-        const val DEFAULT_PAGE_SIZE: Int = 20
+        const val DEFAULT_AUTHORS_PAGE_SIZE: Int = 30
+        const val DEFAULT_POSTS_PAGE_SIZE: Int = 15
+        const val DEFAULT_COMMENTS_PAGE_SIZE: Int = 10
     }
 
     object RetrofitConfiguration {

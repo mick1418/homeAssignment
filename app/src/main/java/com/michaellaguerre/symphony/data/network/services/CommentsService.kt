@@ -1,5 +1,6 @@
 package com.michaellaguerre.symphony.data.network.services
 
+import com.michaellaguerre.symphony.core.dependencies.Constants
 import com.michaellaguerre.symphony.data.network.api.CommentsApi
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -19,8 +20,12 @@ class CommentsService
      *
      * @param postId the comment's ID
      *
-     * @return a Call containing the list of [com.michaellaguerre.symphony.data.network.entities.CommentEntity]
+     * @return a List of [com.michaellaguerre.symphony.data.network.entities.CommentEntity]
      * from a given [com.michaellaguerre.symphony.data.network.entities.PostEntity]
      */
-    fun getCommentsFromPost(postId: Int) = commentsApi.getCommentsFromPost(postId)
+    suspend fun getCommentsFromPost(
+        postId: Int,
+        pageNumber: Int = Constants.Api.DEFAULT_PAGE_NUMBER,
+        limit: Int = Constants.Api.DEFAULT_POSTS_PAGE_SIZE
+    ) = commentsApi.getCommentsFromPost(postId, pageNumber, limit)
 }

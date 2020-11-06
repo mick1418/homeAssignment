@@ -1,7 +1,7 @@
 package com.michaellaguerre.symphony.ui.viewmodels
 
-import androidx.lifecycle.MutableLiveData
-import com.michaellaguerre.symphony.core.interactors.UseCase
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
 import com.michaellaguerre.symphony.core.platform.BaseViewModel
 import com.michaellaguerre.symphony.domain.entities.Author
 import com.michaellaguerre.symphony.domain.interactors.GetAuthors
@@ -12,16 +12,14 @@ class AuthorsViewModel : BaseViewModel() {
     @Inject
     lateinit var getAuthors: GetAuthors
 
-    val authors: MutableLiveData<List<Author>> = MutableLiveData()
+    lateinit var authors: LiveData<PagingData<Author>>
 
 
     //**********************************************************************************************
     // ACTIONS
     //**********************************************************************************************
 
-    fun loadAuthors() = getAuthors(UseCase.None()) { it.fold(::handleFailure, ::handleResult) }
-
-    private fun handleResult(authors: List<Author>) {
-        this.authors.postValue(authors)
+    fun loadAuthors() {
+        this.authors = getAuthors.invoke()
     }
 }

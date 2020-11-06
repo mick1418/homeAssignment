@@ -1,12 +1,15 @@
 package com.michaellaguerre.symphony.data.database.daos
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.*
+import com.michaellaguerre.symphony.data.database.AuthorWithPosts
 import com.michaellaguerre.symphony.data.database.PostWithComments
+import com.michaellaguerre.symphony.data.entities.AuthorEntity
 import com.michaellaguerre.symphony.data.entities.PostEntity
 
 @Dao
-interface PostDao {
+interface PostsDao {
 
     //**********************************************************************************************
     // READ
@@ -17,6 +20,9 @@ interface PostDao {
 
     @Query("SELECT * FROM posts WHERE id LIKE :id LIMIT 1")
     fun findById(id: Int): LiveData<PostEntity>
+
+    @Query("SELECT * FROM posts WHERE authorId IS :authorId ORDER BY date DESC")
+    fun postsByAuthorPagingSource(authorId: Int): PagingSource<Int, PostEntity>
 
 
     //**********************************************************************************************
@@ -37,6 +43,12 @@ interface PostDao {
     @Delete
     fun delete(post: PostEntity)
 
+    @Query("DELETE FROM posts")
+    suspend fun deleteAll()
+
+    @Query("DELETE FROM posts WHERE authorId LIKE :authorId")
+    suspend fun deleteAllPostsForAuthor(authorId: Int)
+
 
     //**********************************************************************************************
     // CUSTOM QUERIES
@@ -45,4 +57,7 @@ interface PostDao {
     @Transaction
     @Query("SELECT * FROM posts WHERE id LIKE :postId LIMIT 1")
     fun getPostWithComments(postId: Int): LiveData<PostWithComments>
+
+    @Query("SELECT * FROM posts WHERE authorId LIKE :authorId")
+    fun getPostsForAuthor(authorId: Int): LiveData<List<PostEntity>>
 }

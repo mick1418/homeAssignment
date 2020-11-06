@@ -2,10 +2,7 @@ package com.michaellaguerre.symphony.core.di.modules
 
 import android.content.Context
 import com.michaellaguerre.symphony.SymphonyApplication
-import com.michaellaguerre.symphony.core.platform.NetworkAvailabilityChecker
-import com.michaellaguerre.symphony.data.database.daos.AuthorDao
-import com.michaellaguerre.symphony.data.database.daos.CommentDao
-import com.michaellaguerre.symphony.data.database.daos.PostDao
+import com.michaellaguerre.symphony.data.database.AppDatabase
 import com.michaellaguerre.symphony.data.network.services.AuthorsService
 import com.michaellaguerre.symphony.data.network.services.CommentsService
 import com.michaellaguerre.symphony.data.network.services.PostsService
@@ -31,31 +28,51 @@ class ApplicationModule(private val application: SymphonyApplication) {
     // REPOSITORIES
     //**********************************************************************************************
 
+    /**
+     * Provides an singleton of the [AuthorsRepository]
+     *
+     * @param remoteDataSource the [AuthorsService] from Retrofit
+     * @param database the [AppDatabase] from Room
+     * @return a singleton of [AuthorsRepository]
+     */
     @Singleton
     @Provides
     fun provideAuthorsRepository(
         remoteDataSource: AuthorsService,
-        localDataSource: AuthorDao,
-        networkAvailabilityChecker: NetworkAvailabilityChecker
+        database: AppDatabase
     ): AuthorsRepository =
-        AuthorsRepository(remoteDataSource, localDataSource, networkAvailabilityChecker)
+        AuthorsRepository(remoteDataSource, database)
 
+
+    /**
+     * Provides an singleton of the [PostsRepository]
+     *
+     * @param remoteDataSource the [PostsService] from Retrofit
+     * @param database the [AppDatabase] from Room
+     * @return a singleton of [PostsRepository]
+     */
     @Singleton
     @Provides
     fun providePostsRepository(
         remoteDataSource: PostsService,
-        localDataSource: PostDao,
-        networkAvailabilityChecker: NetworkAvailabilityChecker
+        database: AppDatabase
     ): PostsRepository =
-        PostsRepository(remoteDataSource, localDataSource, networkAvailabilityChecker)
+        PostsRepository(remoteDataSource, database)
 
+
+    /**
+     * Provides an singleton of the [CommentsRepository]
+     *
+     * @param remoteDataSource the [CommentsService] from Retrofit
+     * @param database the [AppDatabase] from Room
+     * @return a singleton of [CommentsRepository]
+     */
     @Singleton
     @Provides
     fun provideCommentsRepository(
         remoteDataSource: CommentsService,
-        localDataSource: CommentDao,
-        networkAvailabilityChecker: NetworkAvailabilityChecker
+        database: AppDatabase
     ): CommentsRepository =
-        CommentsRepository(remoteDataSource, localDataSource, networkAvailabilityChecker)
+        CommentsRepository(remoteDataSource, database)
 
 }

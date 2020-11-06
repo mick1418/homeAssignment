@@ -1,26 +1,24 @@
 package com.michaellaguerre.symphony.ui.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.paging.PagingData
 import com.michaellaguerre.symphony.core.platform.BaseViewModel
 import com.michaellaguerre.symphony.domain.entities.Comment
 import com.michaellaguerre.symphony.domain.entities.Post
 import com.michaellaguerre.symphony.domain.interactors.GetPostComments
-import com.michaellaguerre.symphony.domain.interactors.GetPostDetail
 import javax.inject.Inject
 
 class PostDetailsViewModel(post: Post) : BaseViewModel() {
-
-    @Inject
-    lateinit var getPostDetail: GetPostDetail
 
     @Inject
     lateinit var getPostComments: GetPostComments
 
 
     var post: MutableLiveData<Post> = MutableLiveData()
-    var comments: MutableLiveData<List<Comment>> = MutableLiveData()
+    lateinit var comments: LiveData<PagingData<Comment>>
 
 
     //**********************************************************************************************
@@ -35,26 +33,8 @@ class PostDetailsViewModel(post: Post) : BaseViewModel() {
     // ACTIONS
     //**********************************************************************************************
 
-    fun loadPost(postId: Int) = getPostDetail(GetPostDetail.Params(postId)) {
-        it.fold(
-            ::handleFailure,
-            ::handleResultPost
-        )
-    }
-
-    fun loadCommentsForPost(postId: Int) = getPostComments(GetPostComments.Params(postId)) {
-        it.fold(
-            ::handleFailure,
-            ::handleResultComments
-        )
-    }
-
-    private fun handleResultPost(post: Post) {
-        this.post.postValue(post)
-    }
-
-    private fun handleResultComments(comments: List<Comment>) {
-        this.comments.postValue(comments)
+    fun loadCommentsForPost(postId: Int) {
+        this.comments = getPostComments.invoke(GetPostComments.Params(postId))
     }
 
 

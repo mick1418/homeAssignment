@@ -1,49 +1,24 @@
 package com.michaellaguerre.symphony.data.repositories
 
-import com.michaellaguerre.symphony.core.platform.NetworkAvailabilityChecker
-import com.michaellaguerre.symphony.core.utils.Either
-import com.michaellaguerre.symphony.core.utils.Failure
-import com.michaellaguerre.symphony.data.database.daos.PostDao
-import com.michaellaguerre.symphony.data.entities.PostEntity
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.liveData
+import com.michaellaguerre.symphony.core.dependencies.Constants
+import com.michaellaguerre.symphony.data.database.AppDatabase
 import com.michaellaguerre.symphony.data.network.services.PostsService
-import com.michaellaguerre.symphony.domain.entities.Post
 import javax.inject.Inject
 
 class PostsRepository
 @Inject constructor(
     private val service: PostsService,
-    private val dao: PostDao,
-    networkAvailabilityChecker: NetworkAvailabilityChecker
-) : BaseRepository(networkAvailabilityChecker) {
+    private val database: AppDatabase
+) {
 
-
-    fun getPostDetail(postId: Int): Either<Failure, Post> {
-        return request(
-            call = service.getPost(postId),
-            transformation = {
-                // Insert into database
-                dao.insert(it)
-
-                // Convert to domain entity
-                it.toPost()
-            },
-            defaultResult = PostEntity.empty
-        )
-    }
-
-    fun getPostForAuthor(authorId: Int): Either<Failure, List<Post>> {
-        return request(
-            call = service.getPostsFromAuthor(authorId),
-            transformation = {
-
-                // Insert into database
-                dao.insertAll(it)
-
-                // Convert to domain entity
-                it.map { postEntity -> postEntity.toPost() }
-            },
-            defaultResult = emptyList()
-        )
-    }
-
+    fun getPostsForAuthors(authorId: Int, pageSize: Int = Constants.Api.DEFAULT_POSTS_PAGE_SIZE) =
+        Pager(
+            config = PagingConfig(pageSize, enablePlaceholders = true),
+            remoteMediator = PostsRemoteMediator(authorId, service, database)
+        ) {
+            database.postDao().postsByAuthorPagingSource(authorId)
+        }.liveData
 }

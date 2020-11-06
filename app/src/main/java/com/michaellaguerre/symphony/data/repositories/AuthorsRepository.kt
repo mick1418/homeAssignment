@@ -1,42 +1,23 @@
 package com.michaellaguerre.symphony.data.repositories
 
-import com.michaellaguerre.symphony.core.platform.NetworkAvailabilityChecker
-import com.michaellaguerre.symphony.core.utils.Either
-import com.michaellaguerre.symphony.core.utils.Failure
-import com.michaellaguerre.symphony.data.database.daos.AuthorDao
-import com.michaellaguerre.symphony.data.entities.AuthorEntity
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.liveData
+import com.michaellaguerre.symphony.core.dependencies.Constants
+import com.michaellaguerre.symphony.data.database.AppDatabase
 import com.michaellaguerre.symphony.data.network.services.AuthorsService
-import com.michaellaguerre.symphony.domain.entities.Author
 import javax.inject.Inject
 
 class AuthorsRepository
 @Inject constructor(
     private val service: AuthorsService,
-    private val dao: AuthorDao,
-    networkAvailabilityChecker: NetworkAvailabilityChecker
-) : BaseRepository(networkAvailabilityChecker) {
+    private val database: AppDatabase
+) {
 
-    fun getAuthors(): Either<Failure, List<Author>> {
-        return request(
-            call = service.getAuthors(),
-            transformation = {
-
-                // Insert into database
-                dao.insertAll(it)
-
-                // Convert to domain entity
-                it.map { authorEntity -> authorEntity.toAuthor() }
-            },
-            defaultResult = emptyList()
-        )
-    }
-
-    fun getAuthorDetail(authorId: Int): Either<Failure, Author> {
-        return request(
-            call = service.getAuthor(authorId),
-            transformation = { it -> it.toAuthor() },
-            defaultResult = AuthorEntity.empty
-        )
-    }
-
+    fun getAuthors(pageSize: Int = Constants.Api.DEFAULT_AUTHORS_PAGE_SIZE) = Pager(
+        config = PagingConfig(pageSize, enablePlaceholders = true),
+        remoteMediator = AuthorsRemoteMediator("authors", service, database)
+    ) {
+        database.authorDao().authorsPagingSource()
+    }.liveData
 }

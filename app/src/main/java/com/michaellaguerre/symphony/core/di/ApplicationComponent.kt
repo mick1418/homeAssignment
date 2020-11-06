@@ -18,18 +18,33 @@ import javax.inject.Singleton
 @Component(modules = [ApplicationModule::class, NetworkModule::class, DatabaseModule::class])
 interface ApplicationComponent {
 
-    // Application
+    //**********************************************************************************************
+    // APPLICATION
+    //**********************************************************************************************
+
     fun inject(application: SymphonyApplication)
 
-    // Activities
+
+    //**********************************************************************************************
+    // ACTIVITIES
+    //**********************************************************************************************
+
     fun inject(mainActivity: MainActivity)
 
-    // Fragments
+
+    //**********************************************************************************************
+    // FRAGMENTS
+    //**********************************************************************************************
+
     fun inject(authorsFragment: AuthorsFragment)
     fun inject(authorDetailsFragment: AuthorDetailsFragment)
     fun inject(postDetailsFragment: PostDetailsFragment)
 
-    // ViewModels
+
+    //**********************************************************************************************
+    // VIEW MODELS
+    //**********************************************************************************************
+
     fun inject(authorsViewModel: AuthorsViewModel)
     fun inject(authorDetailsViewModel: AuthorDetailsViewModel)
     fun inject(postDetailsViewModel: PostDetailsViewModel)
