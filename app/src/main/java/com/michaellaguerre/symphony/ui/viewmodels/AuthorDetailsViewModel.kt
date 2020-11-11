@@ -5,15 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagingData
-import com.michaellaguerre.symphony.core.platform.BaseViewModel
-import com.michaellaguerre.symphony.data.Resource
-import com.michaellaguerre.symphony.data.entities.PostEntity
 import com.michaellaguerre.symphony.domain.entities.Author
 import com.michaellaguerre.symphony.domain.entities.Post
 import com.michaellaguerre.symphony.domain.interactors.GetAuthorPosts
 import javax.inject.Inject
 
-class AuthorDetailsViewModel(author: Author) : BaseViewModel() {
+class AuthorDetailsViewModel(author: Author) : ViewModel() {
 
     @Inject
     lateinit var getAuthorPosts: GetAuthorPosts

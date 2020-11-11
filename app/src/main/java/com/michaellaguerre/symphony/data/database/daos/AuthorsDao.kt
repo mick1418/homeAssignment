@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.michaellaguerre.symphony.data.entities.AuthorEntity
-import com.michaellaguerre.symphony.data.database.AuthorWithPosts
 import javax.inject.Singleton
 
 @Singleton
@@ -46,13 +45,4 @@ interface AuthorsDao {
 
     @Query("DELETE FROM authors")
     fun deleteAll()
-
-
-    //**********************************************************************************************
-    // CUSTOM QUERIES
-    //**********************************************************************************************
-
-    @Transaction
-    @Query("SELECT * FROM authors WHERE id LIKE :authorId LIMIT 1")
-    fun getAuthorWithPosts(authorId: Int): LiveData<AuthorWithPosts>
 }

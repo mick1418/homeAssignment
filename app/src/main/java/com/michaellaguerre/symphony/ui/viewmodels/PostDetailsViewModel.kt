@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagingData
-import com.michaellaguerre.symphony.core.platform.BaseViewModel
 import com.michaellaguerre.symphony.domain.entities.Author
 import com.michaellaguerre.symphony.domain.entities.Comment
 import com.michaellaguerre.symphony.domain.entities.Post
 import com.michaellaguerre.symphony.domain.interactors.GetPostComments
 import javax.inject.Inject
 
-class PostDetailsViewModel(author: Author, post: Post) : BaseViewModel() {
+class PostDetailsViewModel(author: Author, post: Post) : ViewModel() {
 
     @Inject
     lateinit var getPostComments: GetPostComments

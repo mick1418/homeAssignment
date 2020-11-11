@@ -3,9 +3,6 @@ package com.michaellaguerre.symphony.data.database.daos
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.michaellaguerre.symphony.data.database.AuthorWithPosts
-import com.michaellaguerre.symphony.data.database.PostWithComments
-import com.michaellaguerre.symphony.data.entities.AuthorEntity
 import com.michaellaguerre.symphony.data.entities.PostEntity
 
 @Dao
@@ -53,10 +50,6 @@ interface PostsDao {
     //**********************************************************************************************
     // CUSTOM QUERIES
     //**********************************************************************************************
-
-    @Transaction
-    @Query("SELECT * FROM posts WHERE id LIKE :postId LIMIT 1")
-    fun getPostWithComments(postId: Int): LiveData<PostWithComments>
 
     @Query("SELECT * FROM posts WHERE authorId LIKE :authorId")
     fun getPostsForAuthor(authorId: Int): LiveData<List<PostEntity>>
