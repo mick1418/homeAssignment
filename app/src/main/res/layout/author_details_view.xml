@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorSecondary"
+        android:background="@color/author_details_background"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="@dimen/author_details_view_padding">
 
@@ -19,6 +20,7 @@
             android:layout_width="@dimen/author_details_view_avatar_size"
             android:layout_height="@dimen/author_details_view_avatar_size"
             android:layout_marginEnd="@dimen/author_details_view_padding"
+            app:shapeAppearanceOverlay="@style/circleImageView"
             tools:src="@tools:sample/avatars" />
 
         <LinearLayout
@@ -29,18 +31,21 @@
 
             <TextView
                 android:id="@+id/authorNameTextView"
-                style="@style/TextAppearance.AppCompat.Headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/author_details_name"
+                android:textSize="@dimen/author_details_view_name_size"
                 tools:text="@tools:sample/full_names" />
 
             <TextView
                 android:id="@+id/authorEmailTextView"
-                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/author_view_picto_padding"
+                android:textColor="@color/author_details_email"
                 app:drawableStartCompat="@drawable/ic_mail"
+                app:drawableTint="@color/author_details_email"
                 tools:text="mike@example.com" />
 
             <TextView
@@ -48,7 +53,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/author_view_picto_padding"
+                android:textColor="@color/author_details_username"
                 app:drawableStartCompat="@drawable/ic_twitter"
+                app:drawableTint="@color/author_details_username"
                 tools:text="@tools:sample/last_names" />
 
         </LinearLayout>

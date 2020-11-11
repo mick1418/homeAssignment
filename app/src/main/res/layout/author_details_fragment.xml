@@ -1,16 +1,36 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <com.michaellaguerre.symphony.ui.views.AuthorDetailView
-        android:id="@+id/authorDetailsView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/author_details_background" />
+
+        <com.michaellaguerre.symphony.ui.views.AuthorDetailView
+            android:id="@+id/authorDetailsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-</LinearLayout>
+        android:layout_height="?attr/actionBarSize"
+        app:title="POST TITLE ferhjk fdlskj fgskjl fgdsjkl gfdsjlk gfdsjkl gdsjkl gfjks lgfdjk ls gfd jkslgfdskjlgfdjkslj gfdjk sgfd jks gfd ksl gfdjksl gfds" />
+</FrameLayout>

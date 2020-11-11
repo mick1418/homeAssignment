@@ -9,25 +9,55 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/post_detail_background"
         android:orientation="vertical">
 
-        <com.michaellaguerre.symphony.ui.views.SquareImageView
-            android:id="@+id/postCoverImageView"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.michaellaguerre.symphony.ui.views.SquareImageView
+                android:id="@+id/postCoverImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:foreground="@drawable/banner_gradient"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/postTitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="@dimen/post_description_padding"
+                android:text="Hello fdsjk hgfdskj lhgfsd jkgfds"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:background="@color/post_detail_background"
+            android:orientation="vertical"
+            android:padding="@dimen/post_description_padding">
 
-        <TextView
-            android:id="@+id/postTitleTextView"
-            style="@style/AuthorsName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/postBodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/postDateTextView"
-            style="@style/AuthorsName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/postDateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:gravity="end"
+                android:paddingTop="@dimen/post_description_spacing"
+                android:textColor="?attr/colorSecondary"
+                tools:text="@tools:sample/date/ddmmyy" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </merge>

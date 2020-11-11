@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="author_details_background">#3a3a3a</color>
+    <color name="author_details_name">#FFBB86FC</color>
+    <color name="author_details_email">#FFFFFFFF</color>
+    <color name="author_details_username">#FFFFFFFF</color>
+
+    <!-- Posts -->
+    <color name="post_detail_background">#121212</color>
+
+    <!-- Comments -->
+    <color name="comments_list_background">#424242</color>
+    <color name="comments_list_separator">#606060</color>
 </resources>

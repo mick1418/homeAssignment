@@ -40,5 +40,8 @@
         <argument
             android:name="post"
             app:argType="com.michaellaguerre.symphony.domain.entities.Post" />
+        <argument
+            android:name="author"
+            app:argType="com.michaellaguerre.symphony.domain.entities.Author" />
     </fragment>
 </navigation>

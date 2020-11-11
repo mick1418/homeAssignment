@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.michaellaguerre.symphony.core.extensions.loadFromUrl
 import com.michaellaguerre.symphony.domain.entities.Post
+import com.michaellaguerre.symphony.ui.utils.DateUtils
 import com.michaellaguerre.symphony.ui.views.PostView
 import javax.inject.Inject
 
@@ -26,7 +27,6 @@ class PostsPagingAdapter
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
 
         val params = RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT)
-
         holder.itemView.layoutParams = params
 
         val item = getItem(position)
@@ -45,8 +45,9 @@ class PostsPagingAdapter
         fun bind(post: Post?, clickListener: (Post?) -> Unit) {
             itemView as PostView
             itemView.binding.postTitleTextView.text = post?.title
+            itemView.binding.postBodyTextView.text = post?.body
             itemView.binding.postCoverImageView.loadFromUrl(post?.imageUrl ?: "")
-            itemView.binding.postDateTextView.text = post?.date
+            itemView.binding.postDateTextView.text = DateUtils.getFormattedDateFromString(post?.date, DateUtils.API_FORMAT, DateUtils.UI_FORMAT)
             itemView.setOnClickListener { clickListener(post) }
         }
     }

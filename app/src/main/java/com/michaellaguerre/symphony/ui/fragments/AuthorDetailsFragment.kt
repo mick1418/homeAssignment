@@ -1,29 +1,18 @@
 package com.michaellaguerre.symphony.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.michaellaguerre.symphony.R
-import com.michaellaguerre.symphony.core.extensions.gone
 import com.michaellaguerre.symphony.core.extensions.loadFromUrl
-import com.michaellaguerre.symphony.core.extensions.visible
 import com.michaellaguerre.symphony.core.platform.BaseFragment
-import com.michaellaguerre.symphony.core.utils.Failure
-import com.michaellaguerre.symphony.data.Resource
-import com.michaellaguerre.symphony.data.Status
-import com.michaellaguerre.symphony.data.entities.PostEntity
 import com.michaellaguerre.symphony.databinding.AuthorDetailsFragmentBinding
 import com.michaellaguerre.symphony.domain.entities.Author
-import com.michaellaguerre.symphony.domain.entities.Post
-import com.michaellaguerre.symphony.ui.SpacingItemDecorator
 import com.michaellaguerre.symphony.ui.adapters.LoadingStateAdapter
 import com.michaellaguerre.symphony.ui.adapters.PostsPagingAdapter
 import com.michaellaguerre.symphony.ui.viewmodels.AuthorDetailsViewModel
@@ -75,6 +64,7 @@ class AuthorDetailsFragment : BaseFragment() {
         // Injecting the viewModel (do not know if it should be there...)
         appComponent.inject(viewModel)
 
+        configureToolbar()
         configureRecyclerView()
 
         // Start loading authors list
@@ -95,28 +85,25 @@ class AuthorDetailsFragment : BaseFragment() {
     //**********************************************************************************************
 
 
+    private fun configureToolbar() {
+        NavigationUI.setupWithNavController(binding.toolbar, findNavController())
+        binding.toolbar.title = ""
+    }
+
+
     private fun configureRecyclerView() {
         binding.recyclerView.apply {
-            layoutManager = GridLayoutManager(context, 3)
+            layoutManager = LinearLayoutManager(context)
             adapter = postsAdapter.withLoadStateFooter(LoadingStateAdapter(postsAdapter))
 
             postsAdapter.clickListener = { post ->
                 findNavController().navigate(
                     AuthorDetailsFragmentDirections.actionAuthorDetailsFragmentToPostDetailsFragment(
-                        post!!
+                        post = post!!,
+                        author = viewModel.author.value!!
                     )
                 )
             }
-
-            val recyclerViewPadding =
-                resources.getDimensionPixelSize(R.dimen.authors_fragment_grid_spacing)
-            val spacingDecorator = SpacingItemDecorator(
-                recyclerViewPadding,
-                SpacingItemDecorator.GRIDVIEW,
-                false,
-                false
-            )
-            addItemDecoration(spacingDecorator)
         }
     }
 

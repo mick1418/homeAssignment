@@ -1,13 +1,12 @@
 package com.michaellaguerre.symphony.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.platform.BaseFragment
 import com.michaellaguerre.symphony.databinding.AuthorsFragmentBinding
@@ -78,32 +77,23 @@ class AuthorsFragment : BaseFragment() {
 
     private fun configureRecyclerView() {
         binding.recyclerView.apply {
-            layoutManager = GridLayoutManager(context, 3).apply {
-//                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-//
-//                    override fun getSpanSize(position: Int): Int {
-//
-//                        Log.e("test", "item type: " + authorsAdapter.getItemViewType(position))
-//
-//                        return 1
-//                    }
-//                }
-            }
-
+            layoutManager = LinearLayoutManager(context)
             adapter = authorsAdapter.withLoadStateFooter(LoadingStateAdapter(authorsAdapter))
 
             authorsAdapter.clickListener = { author ->
 
                 findNavController().navigate(
-                    AuthorsFragmentDirections.actionAuthorsFragmentToAuthorDetailsFragment(author!!)
+                    AuthorsFragmentDirections.actionAuthorsFragmentToAuthorDetailsFragment(
+                        author = author!!
+                    )
                 )
             }
 
             val recyclerViewPadding =
-                resources.getDimensionPixelSize(R.dimen.authors_fragment_grid_spacing)
+                resources.getDimensionPixelSize(R.dimen.authors_fragment_list_spacing)
             val spacingDecorator = SpacingItemDecorator(
                 recyclerViewPadding,
-                SpacingItemDecorator.GRIDVIEW,
+                SpacingItemDecorator.VERTICAL_LINEAR,
                 false,
                 false
             )

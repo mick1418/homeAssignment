@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.michaellaguerre.symphony.core.extensions.loadFromUrl
 import com.michaellaguerre.symphony.domain.entities.Author
-import com.michaellaguerre.symphony.ui.views.AuthorView
+import com.michaellaguerre.symphony.ui.views.AuthorDetailView
 import javax.inject.Inject
 
 class AuthorsPagingAdapter
@@ -19,10 +19,14 @@ class AuthorsPagingAdapter
         parent: ViewGroup,
         viewType: Int
     ): AuthorViewHolder {
-        return AuthorViewHolder(AuthorView(parent.context))
+        return AuthorViewHolder(AuthorDetailView(parent.context))
     }
 
     override fun onBindViewHolder(holder: AuthorViewHolder, position: Int) {
+
+        val params = RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT)
+        holder.itemView.layoutParams = params
+
         val item = getItem(position)
         // Note that item may be null. ViewHolder must support binding a
         // null item as a placeholder.
@@ -34,12 +38,14 @@ class AuthorsPagingAdapter
     // VIEW HOLDERS
     //**********************************************************************************************
 
-    class AuthorViewHolder(itemView: AuthorView) : RecyclerView.ViewHolder(itemView) {
+    class AuthorViewHolder(itemView: AuthorDetailView) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(author: Author?, clickListener: (Author?) -> Unit) {
-            itemView as AuthorView
+            itemView as AuthorDetailView
+            itemView.binding.authorAvatarImageView.loadFromUrl(author?.avatarUrl ?: "")
             itemView.binding.authorNameTextView.text = author?.name
-            itemView.binding.authorAvatarImageView.loadFromUrl(author?.avatarUrl ?:"")
+            itemView.binding.authorEmailTextView.text = author?.email
+            itemView.binding.authorNickNameTextView.text = author?.userName
             itemView.setOnClickListener { clickListener(author) }
         }
     }

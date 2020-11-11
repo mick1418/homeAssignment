@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Author details view -->
+    <dimen name="author_details_view_name_size">30sp</dimen>
+</resources>

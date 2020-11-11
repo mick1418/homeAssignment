@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Authors fragment -->
-    <dimen name="authors_fragment_grid_spacing">16dp</dimen>
+    <dimen name="authors_fragment_list_spacing">4dp</dimen>
 
     <!-- Author view -->
     <dimen name="author_view_name_text_size">14sp</dimen>
@@ -13,6 +13,17 @@
     <dimen name="author_details_view_padding">24dp</dimen>
 
     <!-- Comment view -->
-    <dimen name="comment_view_padding">8dp</dimen>
-    <dimen name="comment_view_avatar_size">54dp</dimen>
+    <dimen name="comment_view_padding">16dp</dimen>
+    <dimen name="comment_view_avatar_size">42dp</dimen>
+
+    <!-- Post view -->
+    <dimen name="post_view_radius">16dp</dimen>
+    <dimen name="post_description_padding">24dp</dimen>
+    <dimen name="post_description_spacing">12dp</dimen>
+
+
+    <!-- Post details view -->
+    <dimen name="post_details_view_author_avatar_size">42dp</dimen>
+    <dimen name="post_details_view_horizontal_padding">24dp</dimen>
+    <dimen name="post_details_view_vertical_padding">24dp</dimen>
 </resources>

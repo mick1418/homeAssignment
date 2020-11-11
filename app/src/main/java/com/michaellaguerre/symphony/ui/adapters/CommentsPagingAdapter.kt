@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.michaellaguerre.symphony.core.extensions.loadFromUrl
 import com.michaellaguerre.symphony.domain.entities.Comment
+import com.michaellaguerre.symphony.ui.utils.DateUtils
 import com.michaellaguerre.symphony.ui.views.CommentView
 import javax.inject.Inject
 
@@ -41,7 +42,7 @@ class CommentsPagingAdapter
             itemView as CommentView
             itemView.binding.commentNameTextView.text = comment?.userName
             itemView.binding.commentEmailTextView.text = comment?.email
-            itemView.binding.commentDateTextView.text = comment?.date
+            itemView.binding.commentDateTextView.text = DateUtils.getFormattedDateFromString(comment?.date, DateUtils.API_FORMAT, DateUtils.UI_FORMAT)
             itemView.binding.commentBodyTextView.text = comment?.body
             itemView.binding.commentAvatarImageView.loadFromUrl(comment?.avatarUrl ?: "")
         }
