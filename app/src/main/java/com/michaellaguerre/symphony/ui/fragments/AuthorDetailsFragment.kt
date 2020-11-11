@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.michaellaguerre.symphony.core.extensions.loadFromUrl
 import com.michaellaguerre.symphony.core.platform.BaseFragment
@@ -66,6 +67,14 @@ class AuthorDetailsFragment : BaseFragment() {
 
         configureToolbar()
         configureRecyclerView()
+        configurePullToRefresh()
+
+        retrievePosts()
+
+        displayAuthor(viewModel.author.value!!)
+    }
+
+    private fun retrievePosts() {
 
         // Start loading authors list
         viewModel.loadPostsForAuthor(viewModel.author.value?.id!!)
@@ -74,12 +83,7 @@ class AuthorDetailsFragment : BaseFragment() {
         viewModel.posts.observe(viewLifecycleOwner, { pagingData ->
             postsAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
         })
-
-
-        displayAuthor(viewModel.author.value!!)
     }
-
-
     //**********************************************************************************************
     // CONFIGURATION
     //**********************************************************************************************
@@ -105,6 +109,16 @@ class AuthorDetailsFragment : BaseFragment() {
                 )
             }
         }
+    }
+
+
+    private fun configurePullToRefresh() {
+
+        postsAdapter.addLoadStateListener { loadStates ->
+            binding.swipeToRefresh.isRefreshing = loadStates.refresh is LoadState.Loading
+        }
+
+        binding.swipeToRefresh.setOnRefreshListener { retrievePosts() }
     }
 
 

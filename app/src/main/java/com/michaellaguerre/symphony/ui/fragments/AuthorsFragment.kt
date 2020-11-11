@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.platform.BaseFragment
@@ -54,6 +55,18 @@ class AuthorsFragment : BaseFragment() {
         appComponent.inject(viewModel)
 
         configureRecyclerView()
+        configurePullToRefresh()
+
+        retrieveAuthors()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
+    private fun retrieveAuthors() {
 
         // Start loading authors list
         viewModel.loadAuthors()
@@ -64,11 +77,6 @@ class AuthorsFragment : BaseFragment() {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 
     //**********************************************************************************************
     // CONFIGURATION
@@ -76,6 +84,7 @@ class AuthorsFragment : BaseFragment() {
 
 
     private fun configureRecyclerView() {
+
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = authorsAdapter.withLoadStateFooter(LoadingStateAdapter(authorsAdapter))
@@ -99,5 +108,14 @@ class AuthorsFragment : BaseFragment() {
             )
             addItemDecoration(spacingDecorator)
         }
+    }
+
+    private fun configurePullToRefresh() {
+
+        authorsAdapter.addLoadStateListener { loadStates ->
+            binding.swipeToRefresh.isRefreshing = loadStates.refresh is LoadState.Loading
+        }
+
+        binding.swipeToRefresh.setOnRefreshListener { retrieveAuthors() }
     }
 }
