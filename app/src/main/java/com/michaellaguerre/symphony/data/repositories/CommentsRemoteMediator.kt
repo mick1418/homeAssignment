@@ -8,17 +8,15 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.michaellaguerre.symphony.data.database.AppDatabase
 import com.michaellaguerre.symphony.data.entities.CommentEntity
-import com.michaellaguerre.symphony.data.entities.PostEntity
 import com.michaellaguerre.symphony.data.entities.RemoteKey
-import com.michaellaguerre.symphony.data.network.services.CommentsService
-import com.michaellaguerre.symphony.data.network.services.PostsService
+import com.michaellaguerre.symphony.data.network.api.CommentsApi
 import retrofit2.HttpException
 import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class CommentsRemoteMediator(
     private val postId: Int,
-    private val service: CommentsService,
+    private val service: CommentsApi,
     private val database: AppDatabase
 ) : RemoteMediator<Int, CommentEntity>() {
 

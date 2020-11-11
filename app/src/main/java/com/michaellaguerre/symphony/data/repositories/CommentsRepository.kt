@@ -5,12 +5,12 @@ import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.michaellaguerre.symphony.core.dependencies.Constants
 import com.michaellaguerre.symphony.data.database.AppDatabase
-import com.michaellaguerre.symphony.data.network.services.CommentsService
+import com.michaellaguerre.symphony.data.network.api.CommentsApi
 import javax.inject.Inject
 
 class CommentsRepository
 @Inject constructor(
-    private val service: CommentsService,
+    private val service: CommentsApi,
     private val database: AppDatabase
 ) {
 

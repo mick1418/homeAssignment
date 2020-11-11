@@ -5,12 +5,12 @@ import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.michaellaguerre.symphony.core.dependencies.Constants
 import com.michaellaguerre.symphony.data.database.AppDatabase
-import com.michaellaguerre.symphony.data.network.services.AuthorsService
+import com.michaellaguerre.symphony.data.network.api.AuthorsApi
 import javax.inject.Inject
 
 class AuthorsRepository
 @Inject constructor(
-    private val service: AuthorsService,
+    private val service: AuthorsApi,
     private val database: AppDatabase
 ) {
 

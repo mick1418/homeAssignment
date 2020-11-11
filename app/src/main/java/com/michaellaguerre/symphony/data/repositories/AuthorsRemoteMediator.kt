@@ -9,14 +9,14 @@ import androidx.room.withTransaction
 import com.michaellaguerre.symphony.data.database.AppDatabase
 import com.michaellaguerre.symphony.data.entities.AuthorEntity
 import com.michaellaguerre.symphony.data.entities.RemoteKey
-import com.michaellaguerre.symphony.data.network.services.AuthorsService
+import com.michaellaguerre.symphony.data.network.api.AuthorsApi
 import retrofit2.HttpException
 import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class AuthorsRemoteMediator(
     private val query: String,
-    private val service: AuthorsService,
+    private val service: AuthorsApi,
     private val database: AppDatabase
 ) : RemoteMediator<Int, AuthorEntity>() {
 

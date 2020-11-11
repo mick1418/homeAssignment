@@ -5,12 +5,12 @@ import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.michaellaguerre.symphony.core.dependencies.Constants
 import com.michaellaguerre.symphony.data.database.AppDatabase
-import com.michaellaguerre.symphony.data.network.services.PostsService
+import com.michaellaguerre.symphony.data.network.api.PostsApi
 import javax.inject.Inject
 
 class PostsRepository
 @Inject constructor(
-    private val service: PostsService,
+    private val service: PostsApi,
     private val database: AppDatabase
 ) {
 

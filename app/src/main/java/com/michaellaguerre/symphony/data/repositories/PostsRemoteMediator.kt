@@ -9,14 +9,14 @@ import androidx.room.withTransaction
 import com.michaellaguerre.symphony.data.database.AppDatabase
 import com.michaellaguerre.symphony.data.entities.PostEntity
 import com.michaellaguerre.symphony.data.entities.RemoteKey
-import com.michaellaguerre.symphony.data.network.services.PostsService
+import com.michaellaguerre.symphony.data.network.api.PostsApi
 import retrofit2.HttpException
 import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class PostsRemoteMediator(
     private val authorId: Int,
-    private val service: PostsService,
+    private val service: PostsApi,
     private val database: AppDatabase
 ) : RemoteMediator<Int, PostEntity>() {
 

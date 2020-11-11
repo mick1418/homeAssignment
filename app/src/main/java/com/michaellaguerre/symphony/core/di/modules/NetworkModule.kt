@@ -2,6 +2,9 @@ package com.michaellaguerre.symphony.core.di.modules
 
 import com.michaellaguerre.symphony.core.dependencies.Constants
 import com.michaellaguerre.symphony.core.utils.LiveDataCallAdapterFactory
+import com.michaellaguerre.symphony.data.network.api.AuthorsApi
+import com.michaellaguerre.symphony.data.network.api.CommentsApi
+import com.michaellaguerre.symphony.data.network.api.PostsApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -44,5 +47,42 @@ class NetworkModule() {
             readTimeout(60, TimeUnit.SECONDS)
             writeTimeout(60, TimeUnit.SECONDS)
         }.build()
+    }
+
+
+    /**
+     * Provides a singleton instance of [AuthorsApi].
+     *
+     * @param retrofit the [Retrofit] instance
+     * @return an instance of [AuthorsApi]
+     */
+    @Provides
+    @Singleton
+    fun provideAuthorsApi(retrofit: Retrofit): AuthorsApi {
+        return retrofit.create(AuthorsApi::class.java)
+    }
+
+    /**
+     * Provides a singleton instance of [PostsApi].
+     *
+     * @param retrofit the [Retrofit] instance
+     * @return an instance of [AuthorsApi]
+     */
+    @Provides
+    @Singleton
+    fun providePostsApi(retrofit: Retrofit): PostsApi {
+        return retrofit.create(PostsApi::class.java)
+    }
+
+    /**
+     * Provides a singleton instance of [CommentsApi].
+     *
+     * @param retrofit the [Retrofit] instance
+     * @return an instance of [CommentsApi]
+     */
+    @Provides
+    @Singleton
+    fun provideCommentsApi(retrofit: Retrofit): CommentsApi {
+        return retrofit.create(CommentsApi::class.java)
     }
 }

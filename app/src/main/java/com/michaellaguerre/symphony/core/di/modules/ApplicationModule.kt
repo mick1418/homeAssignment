@@ -3,9 +3,9 @@ package com.michaellaguerre.symphony.core.di.modules
 import android.content.Context
 import com.michaellaguerre.symphony.SymphonyApplication
 import com.michaellaguerre.symphony.data.database.AppDatabase
-import com.michaellaguerre.symphony.data.network.services.AuthorsService
-import com.michaellaguerre.symphony.data.network.services.CommentsService
-import com.michaellaguerre.symphony.data.network.services.PostsService
+import com.michaellaguerre.symphony.data.network.api.AuthorsApi
+import com.michaellaguerre.symphony.data.network.api.CommentsApi
+import com.michaellaguerre.symphony.data.network.api.PostsApi
 import com.michaellaguerre.symphony.data.repositories.AuthorsRepository
 import com.michaellaguerre.symphony.data.repositories.CommentsRepository
 import com.michaellaguerre.symphony.data.repositories.PostsRepository
@@ -31,14 +31,14 @@ class ApplicationModule(private val application: SymphonyApplication) {
     /**
      * Provides an singleton of the [AuthorsRepository]
      *
-     * @param remoteDataSource the [AuthorsService] from Retrofit
+     * @param remoteDataSource the [AuthorsApi] from Retrofit
      * @param database the [AppDatabase] from Room
      * @return a singleton of [AuthorsRepository]
      */
     @Singleton
     @Provides
     fun provideAuthorsRepository(
-        remoteDataSource: AuthorsService,
+        remoteDataSource: AuthorsApi,
         database: AppDatabase
     ): AuthorsRepository =
         AuthorsRepository(remoteDataSource, database)
@@ -47,14 +47,14 @@ class ApplicationModule(private val application: SymphonyApplication) {
     /**
      * Provides an singleton of the [PostsRepository]
      *
-     * @param remoteDataSource the [PostsService] from Retrofit
+     * @param remoteDataSource the [PostsApi] from Retrofit
      * @param database the [AppDatabase] from Room
      * @return a singleton of [PostsRepository]
      */
     @Singleton
     @Provides
     fun providePostsRepository(
-        remoteDataSource: PostsService,
+        remoteDataSource: PostsApi,
         database: AppDatabase
     ): PostsRepository =
         PostsRepository(remoteDataSource, database)
@@ -63,14 +63,14 @@ class ApplicationModule(private val application: SymphonyApplication) {
     /**
      * Provides an singleton of the [CommentsRepository]
      *
-     * @param remoteDataSource the [CommentsService] from Retrofit
+     * @param remoteDataSource the [CommentsApi] from Retrofit
      * @param database the [AppDatabase] from Room
      * @return a singleton of [CommentsRepository]
      */
     @Singleton
     @Provides
     fun provideCommentsRepository(
-        remoteDataSource: CommentsService,
+        remoteDataSource: CommentsApi,
         database: AppDatabase
     ): CommentsRepository =
         CommentsRepository(remoteDataSource, database)
