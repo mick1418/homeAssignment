@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.extensions.loadFromUrl
 import com.michaellaguerre.symphony.core.platform.BaseFragment
 import com.michaellaguerre.symphony.databinding.AuthorDetailsFragmentBinding
@@ -72,6 +75,7 @@ class AuthorDetailsFragment : BaseFragment() {
         configureToolbar()
         configureAuthorDetails(viewModel.author.value!!)
         configurePullToRefresh()
+        configureEmptyView()
         configureRecyclerView()
         retrievePosts()
     }
@@ -84,6 +88,19 @@ class AuthorDetailsFragment : BaseFragment() {
     private fun configureToolbar() {
         NavigationUI.setupWithNavController(binding.toolbar, findNavController())
         binding.toolbar.title = ""
+    }
+
+    @OptIn(ExperimentalPagingApi::class)
+    private fun configureEmptyView() {
+        binding.noData.binding.apply {
+            noDataPicto.setImageResource(R.drawable.ic_empty_post)
+            noDataMessage.text = getText(R.string.author_details_no_data)
+        }
+
+        postsAdapter.addDataRefreshListener { isEmpty ->
+            // Display the empty state if needed
+            binding.noData.isVisible = isEmpty
+        }
     }
 
     private fun configureRecyclerView() {

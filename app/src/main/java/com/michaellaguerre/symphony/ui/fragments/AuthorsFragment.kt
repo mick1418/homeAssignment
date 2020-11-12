@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.michaellaguerre.symphony.R
@@ -59,6 +61,7 @@ class AuthorsFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        configureEmptyView()
         configureRecyclerView()
         configurePullToRefresh()
 
@@ -74,6 +77,19 @@ class AuthorsFragment : BaseFragment() {
     //**********************************************************************************************
     // CONFIGURATION
     //**********************************************************************************************
+
+    @OptIn(ExperimentalPagingApi::class)
+    private fun configureEmptyView() {
+        binding.noData.binding.apply {
+            noDataPicto.setImageResource(R.drawable.ic_empty_author)
+            noDataMessage.text = getText(R.string.author_list_no_data)
+        }
+
+        authorsAdapter.addDataRefreshListener { isEmpty ->
+            // Display the empty state if needed
+            binding.noData.isVisible = isEmpty
+        }
+    }
 
 
     private fun configureRecyclerView() {
@@ -91,7 +107,8 @@ class AuthorsFragment : BaseFragment() {
                 )
             }
 
-            val recyclerViewPadding = resources.getDimensionPixelSize(R.dimen.authors_fragment_list_spacing)
+            val recyclerViewPadding =
+                resources.getDimensionPixelSize(R.dimen.authors_fragment_list_spacing)
             val spacingDecorator = SpacingItemDecorator(
                 recyclerViewPadding,
                 SpacingItemDecorator.VERTICAL_LINEAR,

@@ -26,4 +26,9 @@
     <dimen name="post_details_view_author_avatar_size">42dp</dimen>
     <dimen name="post_details_view_horizontal_padding">24dp</dimen>
     <dimen name="post_details_view_vertical_padding">24dp</dimen>
+
+    <!-- Empty state view -->
+    <dimen name="empty_state_padding">48dp</dimen>
+    <dimen name="empty_state_picto_size">200dp</dimen>
+    <dimen name="empty_state_picto_bottom_margin">40dp</dimen>
 </resources>

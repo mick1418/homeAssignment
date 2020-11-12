@@ -19,4 +19,7 @@
     <!-- Comments -->
     <color name="comments_list_background">#424242</color>
     <color name="comments_list_separator">#606060</color>
+
+    <!-- Empty state view -->
+    <color name="empty_state">#424242</color>
 </resources>

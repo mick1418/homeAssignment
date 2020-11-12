@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Symphony</string>
-    <string name="no_data">Nothing to display for now</string>
+
+    <!-- Author detail -->
+    <string name="author_list_no_data">There are no authors to display right now.\nCome back later.</string>
+
+    <!-- Author detail -->
+    <string name="author_details_no_data">There are no posts to display right now.\nCome back later.</string>
+
+    <!-- Post detail -->
+    <string name="post_details_no_data">There are no comments to display right now.\nCome back later.</string>
+
+
 </resources>
