@@ -11,12 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.platform.BaseFragment
 import com.michaellaguerre.symphony.databinding.AuthorsFragmentBinding
+import com.michaellaguerre.symphony.domain.entities.Author
 import com.michaellaguerre.symphony.ui.SpacingItemDecorator
 import com.michaellaguerre.symphony.ui.adapters.AuthorsPagingAdapter
 import com.michaellaguerre.symphony.ui.adapters.LoadingStateAdapter
 import com.michaellaguerre.symphony.ui.viewmodels.AuthorsViewModel
 import javax.inject.Inject
 
+/**
+ * Fragment representing the list of [Author].
+ */
 class AuthorsFragment : BaseFragment() {
 
     @Inject
@@ -36,6 +40,11 @@ class AuthorsFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
+
+        viewModel = ViewModelProvider(this).get(AuthorsViewModel::class.java)
+
+        // Injecting the viewModel (do not know if it should be there...)
+        appComponent.inject(viewModel)
     }
 
     override fun onCreateView(
@@ -49,10 +58,6 @@ class AuthorsFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AuthorsViewModel::class.java)
-
-        // Injecting the viewModel (do not know if it should be there...)
-        appComponent.inject(viewModel)
 
         configureRecyclerView()
         configurePullToRefresh()
@@ -61,20 +66,8 @@ class AuthorsFragment : BaseFragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
-    }
-
-
-    private fun retrieveAuthors() {
-
-        // Start loading authors list
-        viewModel.loadAuthors()
-
-        // Observe the authors list
-        viewModel.authors.observe(viewLifecycleOwner, { pagingData ->
-            authorsAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
-        })
+        super.onDestroyView()
     }
 
 
@@ -98,8 +91,7 @@ class AuthorsFragment : BaseFragment() {
                 )
             }
 
-            val recyclerViewPadding =
-                resources.getDimensionPixelSize(R.dimen.authors_fragment_list_spacing)
+            val recyclerViewPadding = resources.getDimensionPixelSize(R.dimen.authors_fragment_list_spacing)
             val spacingDecorator = SpacingItemDecorator(
                 recyclerViewPadding,
                 SpacingItemDecorator.VERTICAL_LINEAR,
@@ -117,5 +109,16 @@ class AuthorsFragment : BaseFragment() {
         }
 
         binding.swipeToRefresh.setOnRefreshListener { retrieveAuthors() }
+    }
+
+    private fun retrieveAuthors() {
+
+        // Start loading authors list
+        viewModel.loadAuthors()
+
+        // Observe the authors list
+        viewModel.authors.observe(viewLifecycleOwner, { pagingData ->
+            authorsAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+        })
     }
 }

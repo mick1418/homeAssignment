@@ -6,6 +6,9 @@ import androidx.room.*
 import com.michaellaguerre.symphony.data.entities.CommentEntity
 import com.michaellaguerre.symphony.data.entities.PostEntity
 
+/**
+ * Room DAO interface containing comment-related database queries
+ */
 @Dao
 interface CommentsDao {
 

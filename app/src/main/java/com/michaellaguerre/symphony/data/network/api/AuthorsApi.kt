@@ -7,6 +7,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * Retrofit service interface containing author-related network calls
+ */
 interface AuthorsApi {
 
     @GET("authors?_sort=name&_order=asc")

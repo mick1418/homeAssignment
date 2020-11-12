@@ -9,11 +9,18 @@ import com.michaellaguerre.symphony.domain.entities.Author
 import com.michaellaguerre.symphony.ui.views.AuthorDetailView
 import javax.inject.Inject
 
+/**
+ * Paging Adapter used to display a paging list of [Author].
+ */
 class AuthorsPagingAdapter
-@Inject constructor() :PagingDataAdapter<Author, AuthorsPagingAdapter.AuthorViewHolder>(AUTHOR_COMPARATOR) {
-
+@Inject constructor() : PagingDataAdapter<Author, AuthorsPagingAdapter.AuthorViewHolder>(AUTHOR_COMPARATOR) {
 
     internal var clickListener: (Author?) -> Unit = { _ -> }
+
+
+    //**********************************************************************************************
+    // LIFECYCLE
+    //**********************************************************************************************
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -24,12 +31,13 @@ class AuthorsPagingAdapter
 
     override fun onBindViewHolder(holder: AuthorViewHolder, position: Int) {
 
-        val params = RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT)
+        val params = RecyclerView.LayoutParams(
+            RecyclerView.LayoutParams.MATCH_PARENT,
+            RecyclerView.LayoutParams.WRAP_CONTENT
+        )
         holder.itemView.layoutParams = params
 
         val item = getItem(position)
-        // Note that item may be null. ViewHolder must support binding a
-        // null item as a placeholder.
         holder.bind(item, clickListener)
     }
 
@@ -50,6 +58,10 @@ class AuthorsPagingAdapter
         }
     }
 
+
+    //**********************************************************************************************
+    // COMPANION OBJECT
+    //**********************************************************************************************
 
     companion object {
 

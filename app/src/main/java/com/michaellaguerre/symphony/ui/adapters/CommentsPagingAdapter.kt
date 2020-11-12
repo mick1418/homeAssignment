@@ -10,12 +10,18 @@ import com.michaellaguerre.symphony.ui.utils.DateUtils
 import com.michaellaguerre.symphony.ui.views.CommentView
 import javax.inject.Inject
 
+/**
+ * Paging Adapter used to display a paging list of [Comment].
+ */
 class CommentsPagingAdapter
-@Inject constructor() :
-    PagingDataAdapter<Comment, CommentsPagingAdapter.CommentViewHolder>(COMMENT_COMPARATOR) {
-
+@Inject constructor() : PagingDataAdapter<Comment, CommentsPagingAdapter.CommentViewHolder>(COMMENT_COMPARATOR) {
 
     internal var clickListener: (Comment?) -> Unit = { _ -> }
+
+
+    //**********************************************************************************************
+    // LIFECYCLE
+    //**********************************************************************************************
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,8 +32,6 @@ class CommentsPagingAdapter
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val item = getItem(position)
-        // Note that item may be null. ViewHolder must support binding a
-        // null item as a placeholder.
         holder.bind(item, clickListener)
     }
 
@@ -42,12 +46,20 @@ class CommentsPagingAdapter
             itemView as CommentView
             itemView.binding.commentNameTextView.text = comment?.userName
             itemView.binding.commentEmailTextView.text = comment?.email
-            itemView.binding.commentDateTextView.text = DateUtils.getFormattedDateFromString(comment?.date, DateUtils.API_FORMAT, DateUtils.UI_FORMAT)
+            itemView.binding.commentDateTextView.text = DateUtils.getFormattedDateFromString(
+                comment?.date,
+                DateUtils.API_FORMAT,
+                DateUtils.UI_FORMAT
+            )
             itemView.binding.commentBodyTextView.text = comment?.body
             itemView.binding.commentAvatarImageView.loadFromUrl(comment?.avatarUrl ?: "")
         }
     }
 
+
+    //**********************************************************************************************
+    // COMPANION OBJECT
+    //**********************************************************************************************
 
     companion object {
 

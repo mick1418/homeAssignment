@@ -7,12 +7,24 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.michaellaguerre.symphony.data.database.AppDatabase
+import com.michaellaguerre.symphony.data.entities.CommentEntity
 import com.michaellaguerre.symphony.data.entities.PostEntity
 import com.michaellaguerre.symphony.data.entities.RemoteKey
+import com.michaellaguerre.symphony.data.network.api.CommentsApi
 import com.michaellaguerre.symphony.data.network.api.PostsApi
 import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * A Paging RemoteMediator used to mediate between network and database calls when retrieving a list
+ * of [PostEntity].
+ *
+ * It will first try to load the page from the network, then save it to the database.
+ *
+ * @param authorId the id of the [AuthorEntity] whose list of [PostEntity] we want to retrieve
+ * @param service the [PostsApi] used to retrieve [PostEntity] from the network
+ * @param database the [AppDatabase] used to retrieve [PostEntity] from the database
+ */
 @OptIn(ExperimentalPagingApi::class)
 class PostsRemoteMediator(
     private val authorId: Int,

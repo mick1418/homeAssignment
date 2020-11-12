@@ -13,6 +13,16 @@ import com.michaellaguerre.symphony.data.network.api.AuthorsApi
 import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * A Paging RemoteMediator used to mediate between network and database calls when retrieving a list
+ * of [AuthorEntity].
+ *
+ * It will first try to load the page from the network, then save it to the database.
+ *
+ * @param query the author's query (not used)
+ * @param service the [AuthorsApi] used to retrieve [AuthorEntity] from the network
+ * @param database the [AppDatabase] used to retrieve [AuthorEntity] from the database
+ */
 @OptIn(ExperimentalPagingApi::class)
 class AuthorsRemoteMediator(
     private val query: String,

@@ -9,14 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Generic item decoration used to add spacing between views of a RecyclerView.
  * It supports Linear vertical and horizontal, and Gridview.
- * <p/>
- * Created by Michael LAGUERRE on 23/07/15.
  */
 public class SpacingItemDecorator extends RecyclerView.ItemDecoration {
 
     public static final int HORIZONTAL_LINEAR = 0;
-    public static final int VERTICAL_LINEAR   = 1;
-    public static final int GRIDVIEW          = 2;
+    public static final int VERTICAL_LINEAR = 1;
+    public static final int GRIDVIEW = 2;
 
     private int mLayoutType;
     private int mFullSpace;
@@ -85,7 +83,7 @@ public class SpacingItemDecorator extends RecyclerView.ItemDecoration {
                 }
 
                 // Right item
-                else if (lp.getSpanIndex() == ((GridLayoutManager)parent.getLayoutManager()).getSpanCount() - 1) {
+                else if (lp.getSpanIndex() == ((GridLayoutManager) parent.getLayoutManager()).getSpanCount() - 1) {
                     outRect.left = mHalfSpace;
                     outRect.right = mHalfSpace;
                 }

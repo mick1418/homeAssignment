@@ -22,6 +22,13 @@ import com.michaellaguerre.symphony.ui.utils.DateUtils
 import com.michaellaguerre.symphony.ui.viewmodels.PostDetailsViewModel
 import javax.inject.Inject
 
+/**
+ * Fragment representing the detail screen for a [Post].
+ *
+ * It contains 2 sections:
+ * - the post's details
+ * - the post's associated comments
+ */
 class PostDetailsFragment : BaseFragment() {
 
     @Inject
@@ -46,6 +53,9 @@ class PostDetailsFragment : BaseFragment() {
         // View model
         val factory = PostDetailsViewModel.Factory(args.author, args.post)
         viewModel = ViewModelProvider(this, factory).get(PostDetailsViewModel::class.java)
+
+        // Injecting the viewModel (do not know if it should be there...)
+        appComponent.inject(viewModel)
     }
 
     override fun onCreateView(
@@ -64,23 +74,13 @@ class PostDetailsFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        // Injecting the viewModel (do not know if it should be there...)
-        appComponent.inject(viewModel)
-
         configureToolbar()
         configureRecyclerView()
 
         configurePost(viewModel.post.value!!)
         configureAuthor(viewModel.author.value!!)
 
-        // Start loading comments list
-        viewModel.loadCommentsForPost(viewModel.post.value?.id!!)
-
-        // Observe the comments list
-        viewModel.comments.observe(viewLifecycleOwner, { pagingData ->
-            commentsAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
-        })
-
+        retrieveComments()
     }
 
 
@@ -110,18 +110,35 @@ class PostDetailsFragment : BaseFragment() {
     }
 
     private fun configurePost(post: Post) {
-        binding.bannerImageView.loadFromUrl(post.imageUrl)
-        binding.toolbar.title = post.title
-        binding.date.text = DateUtils.getFormattedDateFromString(
-            post.date,
-            DateUtils.API_FORMAT,
-            DateUtils.UI_FORMAT
-        )
-        binding.postBody.text = post.body
+
+        binding.apply {
+            bannerImageView.loadFromUrl(post.imageUrl)
+            toolbar.title = post.title
+            postBody.text = post.body
+            date.text = DateUtils.getFormattedDateFromString(
+                post.date,
+                DateUtils.API_FORMAT,
+                DateUtils.UI_FORMAT
+            )
+        }
     }
 
     private fun configureAuthor(author: Author) {
-        binding.authorAvatar.loadFromUrl(author.avatarUrl ?: "")
-        binding.authorName.text = author.name
+
+        binding.apply {
+            authorAvatar.loadFromUrl(author.avatarUrl ?: "")
+            authorName.text = author.name
+        }
+    }
+
+    private fun retrieveComments() {
+
+        // Start loading comments list
+        viewModel.loadCommentsForPost(viewModel.post.value?.id!!)
+
+        // Observe the comments list
+        viewModel.comments.observe(viewLifecycleOwner, { pagingData ->
+            commentsAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
+        })
     }
 }

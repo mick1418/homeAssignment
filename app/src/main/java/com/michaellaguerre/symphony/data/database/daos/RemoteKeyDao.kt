@@ -6,6 +6,9 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.michaellaguerre.symphony.data.entities.RemoteKey
 
+/**
+ * Room DAO interface containing remotekey-related database queries
+ */
 @Dao
 interface RemoteKeyDao {
 

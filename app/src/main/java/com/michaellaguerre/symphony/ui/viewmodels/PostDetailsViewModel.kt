@@ -11,6 +11,12 @@ import com.michaellaguerre.symphony.domain.entities.Post
 import com.michaellaguerre.symphony.domain.interactors.GetPostComments
 import javax.inject.Inject
 
+/**
+ * ViewModel class used to handle everything related to the post details screen.
+ *
+ * @param author an [Author]
+ * @param post an [Post]
+ */
 class PostDetailsViewModel(author: Author, post: Post) : ViewModel() {
 
     @Inject
@@ -35,6 +41,13 @@ class PostDetailsViewModel(author: Author, post: Post) : ViewModel() {
     // ACTIONS
     //**********************************************************************************************
 
+
+    /**
+     * Retrieve the list of [Comment] for a given [Post].
+     *
+     * @param postId the post's ID
+     * @return a LiveData<PagingData<Comment>> containing the pages with the post's comment
+     */
     fun loadCommentsForPost(postId: Int) {
         this.comments = getPostComments.invoke(GetPostComments.Params(postId))
     }
@@ -44,11 +57,19 @@ class PostDetailsViewModel(author: Author, post: Post) : ViewModel() {
     // FACTORY
     //**********************************************************************************************
 
+
+    /**
+     * Factory used to create and initialize an [PostDetailsViewModel] with a given [Post] and [Author]
+     *
+     * @param author the [Author]
+     * @param post the [Post]
+     */
     class Factory(private val author: Author, private val post: Post) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             try {
-                return modelClass.getConstructor(Author::class.java, Post::class.java).newInstance(author, post)
+                return modelClass.getConstructor(Author::class.java, Post::class.java)
+                    .newInstance(author, post)
             } catch (e: Exception) {
                 throw RuntimeException(
                     "Cannot create instance of$modelClass: it should have a (val author: Author, val post: Post) constructor",

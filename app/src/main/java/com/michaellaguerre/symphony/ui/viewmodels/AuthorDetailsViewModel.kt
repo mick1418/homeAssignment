@@ -12,6 +12,11 @@ import com.michaellaguerre.symphony.domain.interactors.ContactByMail
 import com.michaellaguerre.symphony.domain.interactors.GetAuthorPosts
 import javax.inject.Inject
 
+/**
+ * ViewModel class used to handle everything related to the author details screen.
+ *
+ * @param author an [Author]
+ */
 class AuthorDetailsViewModel(author: Author) : ViewModel() {
 
     @Inject
@@ -38,10 +43,23 @@ class AuthorDetailsViewModel(author: Author) : ViewModel() {
     //**********************************************************************************************
 
 
+    /**
+     * Retrieve the list of [Post] for a given [Author].
+     *
+     * @param authorId the author's ID
+     * @return a LiveData<PagingData<Post>> containing the pages with the author's posts
+     */
     fun loadPostsForAuthor(authorId: Int) {
         this.posts = getAuthorPosts.invoke(GetAuthorPosts.Params(authorId))
     }
 
+
+    /**
+     * Open an email client and start a new mail to the given email address
+     *
+     * @param activityContext the Activity [Context]
+     * @param emailAddress the email address
+     */
     fun contactByMail(activityContext: Context, emailAddress: String) {
         contactByMail.invoke(ContactByMail.Params(activityContext, emailAddress))
     }
@@ -51,6 +69,12 @@ class AuthorDetailsViewModel(author: Author) : ViewModel() {
     // FACTORY
     //**********************************************************************************************
 
+
+    /**
+     * Factory used to create and initialize an [AuthorDetailsViewModel] with a given [Author]
+     *
+     * @param author the [Author]
+     */
     class Factory(private val author: Author) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

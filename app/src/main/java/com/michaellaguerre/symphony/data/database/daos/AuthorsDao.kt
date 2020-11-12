@@ -6,6 +6,9 @@ import androidx.room.*
 import com.michaellaguerre.symphony.data.entities.AuthorEntity
 import javax.inject.Singleton
 
+/**
+ * Room DAO interface containing author-related database queries
+ */
 @Singleton
 @Dao
 interface AuthorsDao {

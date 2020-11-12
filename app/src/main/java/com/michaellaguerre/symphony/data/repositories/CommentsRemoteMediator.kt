@@ -13,6 +13,17 @@ import com.michaellaguerre.symphony.data.network.api.CommentsApi
 import retrofit2.HttpException
 import java.io.IOException
 
+
+/**
+ * A Paging RemoteMediator used to mediate between network and database calls when retrieving a list
+ * of [CommentEntity].
+ *
+ * It will first try to load the page from the network, then save it to the database.
+ *
+ * @param postId the id of the [PostEntity] whose list of [CommentEntity] we want to retrieve
+ * @param service the [CommentsApi] used to retrieve [CommentEntity] from the network
+ * @param database the [AppDatabase] used to retrieve [CommentEntity] from the database
+ */
 @OptIn(ExperimentalPagingApi::class)
 class CommentsRemoteMediator(
     private val postId: Int,

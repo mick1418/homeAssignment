@@ -10,12 +10,18 @@ import com.michaellaguerre.symphony.ui.utils.DateUtils
 import com.michaellaguerre.symphony.ui.views.PostView
 import javax.inject.Inject
 
+/**
+ * Paging Adapter used to display a paging list of [Post].
+ */
 class PostsPagingAdapter
-@Inject constructor() :
-    PagingDataAdapter<Post, PostsPagingAdapter.PostViewHolder>(POST_COMPARATOR) {
-
+@Inject constructor() : PagingDataAdapter<Post, PostsPagingAdapter.PostViewHolder>(POST_COMPARATOR) {
 
     internal var clickListener: (Post?) -> Unit = { _ -> }
+
+
+    //**********************************************************************************************
+    // LIFECYCLE
+    //**********************************************************************************************
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,12 +32,13 @@ class PostsPagingAdapter
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
 
-        val params = RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT)
+        val params = RecyclerView.LayoutParams(
+            RecyclerView.LayoutParams.MATCH_PARENT,
+            RecyclerView.LayoutParams.WRAP_CONTENT
+        )
         holder.itemView.layoutParams = params
 
         val item = getItem(position)
-        // Note that item may be null. ViewHolder must support binding a
-        // null item as a placeholder.
         holder.bind(item, clickListener)
     }
 
@@ -47,11 +54,19 @@ class PostsPagingAdapter
             itemView.binding.postTitleTextView.text = post?.title
             itemView.binding.postBodyTextView.text = post?.body
             itemView.binding.postCoverImageView.loadFromUrl(post?.imageUrl ?: "")
-            itemView.binding.postDateTextView.text = DateUtils.getFormattedDateFromString(post?.date, DateUtils.API_FORMAT, DateUtils.UI_FORMAT)
+            itemView.binding.postDateTextView.text = DateUtils.getFormattedDateFromString(
+                post?.date,
+                DateUtils.API_FORMAT,
+                DateUtils.UI_FORMAT
+            )
             itemView.setOnClickListener { clickListener(post) }
         }
     }
 
+
+    //**********************************************************************************************
+    // COMPANION OBJECT
+    //**********************************************************************************************
 
     companion object {
 

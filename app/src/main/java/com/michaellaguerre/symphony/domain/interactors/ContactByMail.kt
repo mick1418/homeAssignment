@@ -6,7 +6,11 @@ import android.net.Uri
 import android.util.Log
 import javax.inject.Inject
 
-
+/**
+ * Contact by Mail use case.
+ *
+ * This use case allows the user to send a mail to a given [Author].
+ */
 class ContactByMail
 @Inject constructor() {
 

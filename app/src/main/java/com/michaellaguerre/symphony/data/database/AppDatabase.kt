@@ -11,6 +11,9 @@ import com.michaellaguerre.symphony.data.entities.CommentEntity
 import com.michaellaguerre.symphony.data.entities.PostEntity
 import com.michaellaguerre.symphony.data.entities.RemoteKey
 
+/**
+ * Main Room database
+ */
 @Database(
     entities = [AuthorEntity::class, PostEntity::class, CommentEntity::class, RemoteKey::class],
     version = 2

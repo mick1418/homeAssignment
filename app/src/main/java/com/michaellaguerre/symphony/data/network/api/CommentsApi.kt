@@ -7,6 +7,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+/**
+ * Retrofit service interface containing comment-related network calls
+ */
 interface CommentsApi {
 
     @GET("posts/{postId}/comments?_sort=date&_order=desc")

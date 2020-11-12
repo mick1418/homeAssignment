@@ -5,6 +5,9 @@ import androidx.paging.PagingSource
 import androidx.room.*
 import com.michaellaguerre.symphony.data.entities.PostEntity
 
+/**
+ * Room DAO interface containing post-related database queries
+ */
 @Dao
 interface PostsDao {
 
