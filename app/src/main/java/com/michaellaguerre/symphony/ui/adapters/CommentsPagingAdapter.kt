@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.extensions.loadFromUrl
 import com.michaellaguerre.symphony.domain.entities.Comment
 import com.michaellaguerre.symphony.ui.utils.DateUtils
@@ -52,7 +53,7 @@ class CommentsPagingAdapter
                 DateUtils.UI_FORMAT
             )
             itemView.binding.commentBodyTextView.text = comment?.body
-            itemView.binding.commentAvatarImageView.loadFromUrl(comment?.avatarUrl ?: "")
+            itemView.binding.commentAvatarImageView.loadFromUrl(comment?.avatarUrl ?: "", R.drawable.ic_placeholder_comment)
         }
     }
 

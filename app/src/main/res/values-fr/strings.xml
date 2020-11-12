@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Symphony</string>
+
+    <!-- Loading state -->
+    <string name="retry">Réessayer</string>
+
+    <!-- Author detail -->
+    <string name="author_list_no_data">Il n\'y a pas d\'auteur à afficher pour le moment.\nRevenez plus tard.</string>
+
+    <!-- Author detail -->
+    <string name="author_details_no_data">Il n\'y a pas d\'article à afficher pour le moment.\nRevenez plus tard.</string>
+
+    <!-- Post detail -->
+    <string name="post_details_no_data">Il n\'y a pas de commentaire à afficher pour le moment.\nRevenez plus tard.</string>
+
+
+</resources>

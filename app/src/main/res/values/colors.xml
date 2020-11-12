@@ -25,4 +25,7 @@
 
     <!-- Empty state view -->
     <color name="empty_state">#424242</color>
+
+    <!-- Placeholder -->
+    <color name="placeholder_background">#606060</color>
 </resources>

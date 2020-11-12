@@ -112,7 +112,7 @@ class PostDetailsFragment : BaseFragment() {
     private fun configurePost(post: Post) {
 
         binding.apply {
-            bannerImageView.loadFromUrl(post.imageUrl)
+            bannerImageView.loadFromUrl(post.imageUrl, R.drawable.ic_placeholder_post)
             toolbar.title = post.title
             postBody.text = post.body
             date.text = DateUtils.getFormattedDateFromString(

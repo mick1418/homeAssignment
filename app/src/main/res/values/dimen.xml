@@ -44,4 +44,13 @@
     <!-- Loading and errors in paging adapter -->
     <dimen name="loading_state_padding">24dp</dimen>
     <dimen name="loading_state_spacing">12dp</dimen>
+
+    <!-- Placeholders -->
+    <dimen name="placeholder_author_padding_bottom">6dp</dimen>
+    <dimen name="placeholder_author_padding">20dp</dimen>
+    <dimen name="placeholder_post_padding_bottom">18dp</dimen>
+    <dimen name="placeholder_post_padding">40dp</dimen>
+    <dimen name="placeholder_comment_padding_bottom">0dp</dimen>
+    <dimen name="placeholder_comment_padding">28dp</dimen>
+
 </resources>

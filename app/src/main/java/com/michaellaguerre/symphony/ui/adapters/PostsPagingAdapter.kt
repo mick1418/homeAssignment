@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.extensions.loadFromUrl
 import com.michaellaguerre.symphony.domain.entities.Post
 import com.michaellaguerre.symphony.ui.utils.DateUtils
@@ -53,7 +54,7 @@ class PostsPagingAdapter
             itemView as PostView
             itemView.binding.postTitleTextView.text = post?.title
             itemView.binding.postBodyTextView.text = post?.body
-            itemView.binding.postCoverImageView.loadFromUrl(post?.imageUrl ?: "")
+            itemView.binding.postCoverImageView.loadFromUrl(post?.imageUrl ?: "", R.drawable.ic_placeholder_post)
             itemView.binding.postDateTextView.text = DateUtils.getFormattedDateFromString(
                 post?.date,
                 DateUtils.API_FORMAT,

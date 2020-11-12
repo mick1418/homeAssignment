@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.extensions.loadFromUrl
 import com.michaellaguerre.symphony.domain.entities.Author
 import com.michaellaguerre.symphony.ui.views.AuthorDetailView
@@ -50,7 +51,7 @@ class AuthorsPagingAdapter
 
         fun bind(author: Author?, clickListener: (Author?) -> Unit) {
             itemView as AuthorDetailView
-            itemView.binding.authorAvatarImageView.loadFromUrl(author?.avatarUrl ?: "")
+            itemView.binding.authorAvatarImageView.loadFromUrl(author?.avatarUrl ?: "", R.drawable.ic_placeholder_author)
             itemView.binding.authorNameTextView.text = author?.name
             itemView.binding.authorEmailTextView.text = author?.email
             itemView.binding.authorNickNameTextView.text = author?.userName

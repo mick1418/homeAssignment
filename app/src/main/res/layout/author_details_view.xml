@@ -20,6 +20,7 @@
             android:layout_width="@dimen/author_details_view_avatar_size"
             android:layout_height="@dimen/author_details_view_avatar_size"
             android:layout_marginEnd="@dimen/author_details_view_padding"
+            android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/circleImageView"
             tools:src="@tools:sample/avatars" />
 

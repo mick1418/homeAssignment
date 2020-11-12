@@ -132,7 +132,7 @@ class AuthorDetailsFragment : BaseFragment() {
 
         // Configure the author view
         binding.authorDetailsView.binding.apply {
-            authorAvatarImageView.loadFromUrl(author.avatarUrl)
+            authorAvatarImageView.loadFromUrl(author.avatarUrl, R.drawable.ic_placeholder_author)
             authorNameTextView.text = author.name
             authorEmailTextView.text = author.email
             authorNickNameTextView.text = author.userName
