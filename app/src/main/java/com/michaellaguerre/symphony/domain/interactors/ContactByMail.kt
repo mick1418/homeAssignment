@@ -11,7 +11,7 @@ class ContactByMail
 @Inject constructor() {
 
     fun invoke(params: Params) {
-‡
+
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:") // only email apps should handle this
             putExtra(Intent.EXTRA_EMAIL, arrayOf(params.emailAddress))
