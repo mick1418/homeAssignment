@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.michaellaguerre.symphony.databinding.NoDataViewBinding
 
-
 /**
  * View used to represent an empty state.
  *
@@ -24,7 +23,7 @@ class EmptyStateView
     init {
         orientation = VERTICAL
         gravity = Gravity.CENTER
-        binding = NoDataViewBinding.inflate(LayoutInflater.from(context), this)
+        binding = NoDataViewBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
 }

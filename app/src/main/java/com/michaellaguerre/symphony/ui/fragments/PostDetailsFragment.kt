@@ -126,7 +126,7 @@ class PostDetailsFragment : BaseFragment() {
     private fun configureAuthor(author: Author) {
 
         binding.apply {
-            authorAvatar.loadFromUrl(author.avatarUrl ?: "")
+            authorAvatar.loadFromUrl(author.avatarUrl ?: "", R.drawable.ic_placeholder_author)
             authorName.text = author.name
         }
     }
