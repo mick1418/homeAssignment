@@ -1,7 +1,6 @@
 package com.michaellaguerre.symphony.core.di.modules
 
 import com.michaellaguerre.symphony.core.dependencies.Constants
-import com.michaellaguerre.symphony.core.utils.LiveDataCallAdapterFactory
 import com.michaellaguerre.symphony.data.network.api.AuthorsApi
 import com.michaellaguerre.symphony.data.network.api.CommentsApi
 import com.michaellaguerre.symphony.data.network.api.PostsApi
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class NetworkModule() {
+class NetworkModule {
 
     /**
      * Provides a singleton instance of Retrofit
@@ -29,7 +28,6 @@ class NetworkModule() {
             .baseUrl(Constants.RetrofitConfiguration.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
     }
 
