@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:parentTag="com.google.android.material.card.MaterialCardView">
+    tools:parentTag="android.widget.LinearLayout">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,8 +40,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-thin"
+                android:paddingBottom="12dp"
                 android:textSize="12sp"
-                tools:text="@tools:sample/full_names"  android:paddingBottom="12dp"/>
+                tools:text="@tools:sample/full_names" />
 
             <TextView
                 android:id="@+id/commentBodyTextView"
@@ -50,12 +51,13 @@
                 android:textSize="12sp"
                 tools:text="@tools:sample/lorem/random" />
 
-            <TextView android:paddingTop="12dp"
+            <TextView
                 android:id="@+id/commentDateTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-thin"
                 android:gravity="end"
+                android:paddingTop="12dp"
                 android:textSize="10sp" />
 
         </LinearLayout>
