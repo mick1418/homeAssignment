@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="@dimen/loading_state_padding">
 
     <TextView
         android:id="@+id/errorMessage"
@@ -25,5 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Recommencer" />
+        android:layout_marginTop="@dimen/loading_state_spacing"
+        android:text="@string/retry" />
 </LinearLayout>

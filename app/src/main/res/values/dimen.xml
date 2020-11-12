@@ -31,4 +31,8 @@
     <dimen name="empty_state_padding">48dp</dimen>
     <dimen name="empty_state_picto_size">200dp</dimen>
     <dimen name="empty_state_picto_bottom_margin">40dp</dimen>
+
+    <!-- Loading and errors in paging adapter -->
+    <dimen name="loading_state_padding">24dp</dimen>
+    <dimen name="loading_state_spacing">12dp</dimen>
 </resources>

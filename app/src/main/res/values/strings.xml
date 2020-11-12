@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Symphony</string>
 
+    <!-- Loading state -->
+    <string name="retry">Retry</string>
+
     <!-- Author detail -->
     <string name="author_list_no_data">There are no authors to display right now.\nCome back later.</string>
 
