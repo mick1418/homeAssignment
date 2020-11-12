@@ -29,9 +29,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:padding="@dimen/post_description_padding"
-                android:text="Hello fdsjk hgfdskj lhgfsd jkgfds"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp" />
+                tools:text="Hello fdsjk hgfdskj lhgfsd jkgfds"
+                android:textColor="@color/post_view_name"
+                android:textSize="@dimen/post_view_name_size" />
 
         </FrameLayout>
 

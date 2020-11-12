@@ -3,4 +3,16 @@
 
     <!-- Author details view -->
     <dimen name="author_details_view_name_size">30sp</dimen>
+
+    <!-- Post view -->
+    <dimen name="post_view_name_size">30sp</dimen>
+
+    <!-- Comment view -->
+    <dimen name="comment_view_name_size">14sp</dimen>
+    <dimen name="comment_view_email_size">12sp</dimen>
+    <dimen name="comment_view_username_size">12sp</dimen>
+    <dimen name="comment_view_date_size">10sp</dimen>
+
+    <!-- Empty state view -->
+    <dimen name="empty_state_view_message_size">30sp</dimen>
 </resources>

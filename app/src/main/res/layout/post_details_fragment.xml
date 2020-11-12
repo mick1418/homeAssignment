@@ -25,7 +25,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
+                android:layout_height="@dimen/post_details_view_banner_height"
                 app:layout_collapseMode="parallax">
 
                 <ImageView
@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:title="POST TITLE ferhjk fdlskj fgskjl fgdsjkl gfdsjlk gfdsjkl gdsjkl gfjks lgfdjk ls gfd jkslgfdskjlgfdjkslj gfdjk sgfd jks gfd ksl gfdjksl gfds" />
+                app:title="POST TITLE" />
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>

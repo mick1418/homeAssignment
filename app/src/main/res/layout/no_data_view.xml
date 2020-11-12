@@ -23,6 +23,6 @@
         android:fontFamily="sans-serif-thin"
         android:gravity="center"
         android:textColor="@color/empty_state"
-        android:textSize="30sp" />
+        android:textSize="@dimen/empty_state_view_message_size" />
 
 </merge>

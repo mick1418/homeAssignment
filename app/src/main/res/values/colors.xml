@@ -15,6 +15,9 @@
 
     <!-- Posts -->
     <color name="post_detail_background">#121212</color>
+    <color name="post_view_overlay_top">#00000000</color>
+    <color name="post_view_overlay_bottom">#000000</color>
+    <color name="post_view_name">#FFFFFF</color>
 
     <!-- Comments -->
     <color name="comments_list_background">#424242</color>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:insetLeft="8dp"
-    android:insetRight="8dp">
+    android:insetLeft="@dimen/comment_list_separator_padding"
+    android:insetRight="@dimen/comment_list_separator_padding">
 
     <shape android:shape="rectangle">
-            <size
-                android:width="40dp"
-                android:height="2dp" />
-            <solid android:color="@color/comments_list_separator" />
+        <size
+            android:width="@dimen/comment_list_separator_height"
+            android:height="@dimen/comment_list_separator_height" />
+        <solid android:color="@color/comments_list_separator" />
     </shape>
 
 </inset>

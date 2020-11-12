@@ -9,12 +9,20 @@
     <dimen name="author_view_picto_padding">8dp</dimen>
 
     <!-- Author details view -->
+    <dimen name="author_details_view_spacer">20dp</dimen>
     <dimen name="author_details_view_avatar_size">92dp</dimen>
     <dimen name="author_details_view_padding">24dp</dimen>
+    <dimen name="author_details_fab_margin">24dp</dimen>
 
     <!-- Comment view -->
     <dimen name="comment_view_padding">16dp</dimen>
     <dimen name="comment_view_avatar_size">42dp</dimen>
+    <dimen name="comment_view_date_top_padding">12dp</dimen>
+    <dimen name="comment_view_email_bottom_padding">12dp</dimen>
+
+    <!-- Comment divider -->
+    <dimen name="comment_list_separator_padding">8dp</dimen>
+    <dimen name="comment_list_separator_height">2dp</dimen>
 
     <!-- Post view -->
     <dimen name="post_view_radius">16dp</dimen>
@@ -26,6 +34,7 @@
     <dimen name="post_details_view_author_avatar_size">42dp</dimen>
     <dimen name="post_details_view_horizontal_padding">24dp</dimen>
     <dimen name="post_details_view_vertical_padding">24dp</dimen>
+    <dimen name="post_details_view_banner_height">600dp</dimen>
 
     <!-- Empty state view -->
     <dimen name="empty_state_padding">48dp</dimen>
