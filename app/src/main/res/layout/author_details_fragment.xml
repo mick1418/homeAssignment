@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -40,4 +40,13 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:title="POST TITLE ferhjk fdlskj fgskjl fgdsjkl gfdsjlk gfdsjkl gdsjkl gfjks lgfdjk ls gfd jkslgfdskjlgfdjkslj gfdjk sgfd jks gfd ksl gfdjksl gfds" />
-</FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:src="@drawable/ic_mail"
+        app:layout_anchor="@id/authorDetailsView"
+        app:layout_anchorGravity="bottom|end" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package com.michaellaguerre.symphony.ui.viewmodels
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.paging.PagingData
 import com.michaellaguerre.symphony.domain.entities.Author
 import com.michaellaguerre.symphony.domain.entities.Post
+import com.michaellaguerre.symphony.domain.interactors.ContactByMail
 import com.michaellaguerre.symphony.domain.interactors.GetAuthorPosts
 import javax.inject.Inject
 
@@ -14,6 +16,9 @@ class AuthorDetailsViewModel(author: Author) : ViewModel() {
 
     @Inject
     lateinit var getAuthorPosts: GetAuthorPosts
+
+    @Inject
+    lateinit var contactByMail: ContactByMail
 
     var author: MutableLiveData<Author> = MutableLiveData()
     lateinit var posts: LiveData<PagingData<Post>>
@@ -36,6 +41,11 @@ class AuthorDetailsViewModel(author: Author) : ViewModel() {
     fun loadPostsForAuthor(authorId: Int) {
         this.posts = getAuthorPosts.invoke(GetAuthorPosts.Params(authorId))
     }
+
+    fun contactByMail(activityContext: Context, emailAddress: String) {
+        contactByMail.invoke(ContactByMail.Params(activityContext, emailAddress))
+    }
+
 
     //**********************************************************************************************
     // FACTORY

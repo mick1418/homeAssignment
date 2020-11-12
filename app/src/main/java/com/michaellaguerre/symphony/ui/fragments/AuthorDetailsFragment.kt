@@ -71,7 +71,7 @@ class AuthorDetailsFragment : BaseFragment() {
 
         retrievePosts()
 
-        displayAuthor(viewModel.author.value!!)
+        configureAuthorDetails(viewModel.author.value!!)
     }
 
     private fun retrievePosts() {
@@ -127,11 +127,12 @@ class AuthorDetailsFragment : BaseFragment() {
     //**********************************************************************************************
 
 
-    private fun displayAuthor(author: Author) {
+    private fun configureAuthorDetails(author: Author) {
         binding.authorDetailsView.binding.authorAvatarImageView.loadFromUrl(author.avatarUrl)
         binding.authorDetailsView.binding.authorNameTextView.text = author.name
         binding.authorDetailsView.binding.authorEmailTextView.text = author.email
         binding.authorDetailsView.binding.authorNickNameTextView.text = author.userName
+        binding.fab.setOnClickListener { viewModel.contactByMail(requireContext(), author.email) }
     }
 
 }
