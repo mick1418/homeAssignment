@@ -1,6 +1,6 @@
-# Symphony Home Assignment
+# Home Assignment
 
-This is my take on the Symphony Home Assignment.
+This is my take on the Home Assignment.
 
 It follows the Clean-architecture paradigm, adapted to be more Android-friendly.
 
@@ -31,10 +31,10 @@ It is composed of these main layers:
 
 | Authors list  | Author details  | Post details | Post details collapsed |
 |:----------|:----------|:----------|:----------|
-| ![Authors list dark mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/authors_dark.png)| ![Author details dark mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/posts_dark.png)| ![Post details dark mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/comments_dark1.png) | ![Post details collapsed dark mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/comments_dark2.png) |
-| ![Authors list light mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/authors_light.png)| ![Author details light mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/posts_light.png)| ![Post details light mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/comments_light1.png) | ![Post details collapsed light mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/comments_light2.png) |
+| ![Authors list dark mode](https://github.com/mick1418/homeAssignment/blob/main/readme/authors_dark.png)| ![Author details dark mode](https://github.com/mick1418/homeAssignment/blob/main/readme/posts_dark.png)| ![Post details dark mode](https://github.com/mick1418/homeAssignment/blob/main/readme/comments_dark1.png) | ![Post details collapsed dark mode](https://github.com/mick1418/homeAssignment/blob/main/readme/comments_dark2.png) |
+| ![Authors list light mode](https://github.com/mick1418/homeAssignment/blob/main/readme/authors_light.png)| ![Author details light mode](https://github.com/mick1418/homeAssignment/blob/main/readme/posts_light.png)| ![Post details light mode](https://github.com/mick1418/homeAssignment/blob/main/readme/comments_light1.png) | ![Post details collapsed light mode](https://github.com/mick1418/homeAssignment/blob/main/readme/comments_light2.png) |
 
-![Video](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/video.gif)
+![Video](https://github.com/mick1418/homeAssignment/blob/main/readme/video.gif)
 
 ## Depedencies
 
