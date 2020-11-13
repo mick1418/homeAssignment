@@ -14,7 +14,7 @@ import com.michaellaguerre.symphony.R
 import com.michaellaguerre.symphony.core.platform.BaseFragment
 import com.michaellaguerre.symphony.databinding.AuthorsFragmentBinding
 import com.michaellaguerre.symphony.domain.entities.Author
-import com.michaellaguerre.symphony.ui.SpacingItemDecorator
+import com.michaellaguerre.symphony.ui.DividerItemDecorator
 import com.michaellaguerre.symphony.ui.adapters.AuthorsPagingAdapter
 import com.michaellaguerre.symphony.ui.adapters.LoadingStateAdapter
 import com.michaellaguerre.symphony.ui.viewmodels.AuthorsViewModel
@@ -107,15 +107,14 @@ class AuthorsFragment : BaseFragment() {
                 )
             }
 
-            val recyclerViewPadding =
-                resources.getDimensionPixelSize(R.dimen.authors_fragment_list_spacing)
-            val spacingDecorator = SpacingItemDecorator(
-                recyclerViewPadding,
-                SpacingItemDecorator.VERTICAL_LINEAR,
-                false,
-                false
+            val dividerDecorator = DividerItemDecorator(
+                requireContext(),
+                R.drawable.author_divider,
+                0,
+                showFirstSpace = false,
+                showLastSpace = false
             )
-            addItemDecoration(spacingDecorator)
+            addItemDecoration(dividerDecorator)
         }
     }
 
