@@ -29,6 +29,13 @@ It is composed of these main layers:
 - Pagination with error / loading states
 - Full dark mode support (I really recommend launching the application in dark mode, it is much nicer :wink: )
 
+| Authors list  | Author details  | Post details | Post details collapsed |
+|:----------|:----------|:----------|:----------|
+| ![Authors list dark mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/authors_dark.png)| ![Author details dark mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/posts_dark.png)| ![Post details dark mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/comments_dark1.png) | ![Post details collapsed dark mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/comments_dark2.png) |
+| ![Authors list light mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/authors_light.png)| ![Author details light mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/posts_light.png)| ![Post details light mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/comments_light1.png) | ![Post details collapsed light mode](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/comments_light2.png) |
+
+![Video](https://github.com/mick1418/symphonyHomeAssignment/blob/main/readme/video.gif)
+
 ## Depedencies
 
 - Retrofit (network engine) https://github.com/square/retrofit
