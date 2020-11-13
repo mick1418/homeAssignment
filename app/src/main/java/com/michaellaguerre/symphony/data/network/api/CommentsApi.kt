@@ -12,7 +12,7 @@ import retrofit2.http.Query
  */
 interface CommentsApi {
 
-    @GET("posts/{postId}/comments?_sort=date&_order=desc")
+    @GET("posts/{postId}/comments?_sort=date&_order=asc")
     suspend fun getCommentsFromPost(
         @Path("postId") postId: Int,
         @Query("_page") page: Int = DEFAULT_PAGE_NUMBER,

@@ -22,7 +22,7 @@ interface CommentsDao {
     @Query("SELECT * FROM comments WHERE id LIKE :id LIMIT 1")
     fun findById(id: Int): LiveData<CommentEntity>
 
-    @Query("SELECT * FROM comments WHERE postId IS :postId ORDER BY date DESC")
+    @Query("SELECT * FROM comments WHERE postId IS :postId ORDER BY date ASC")
     fun commentsByPostPagingSource(postId: Int): PagingSource<Int, CommentEntity>
 
 
