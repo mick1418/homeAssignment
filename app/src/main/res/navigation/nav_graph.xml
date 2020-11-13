@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/authorsFragment"
-        android:name="com.michaellaguerre.symphony.ui.fragments.AuthorsFragment"
+        android:name="com.michaellaguerre.homeassignment.ui.fragments.AuthorsFragment"
         android:label="authors_fragment"
         tools:layout="@layout/authors_fragment">
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/authorDetailsFragment"
-        android:name="com.michaellaguerre.symphony.ui.fragments.AuthorDetailsFragment"
+        android:name="com.michaellaguerre.homeassignment.ui.fragments.AuthorDetailsFragment"
         android:label="AuthorDetailsFragment">
         <action
             android:id="@+id/action_authorDetailsFragment_to_postDetailsFragment"
@@ -31,17 +31,17 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="author"
-            app:argType="com.michaellaguerre.symphony.domain.entities.Author" />
+            app:argType="com.michaellaguerre.homeassignment.domain.entities.Author" />
     </fragment>
     <fragment
         android:id="@+id/postDetailsFragment"
-        android:name="com.michaellaguerre.symphony.ui.fragments.PostDetailsFragment"
+        android:name="com.michaellaguerre.homeassignment.ui.fragments.PostDetailsFragment"
         android:label="PostDetailsFragment" >
         <argument
             android:name="post"
-            app:argType="com.michaellaguerre.symphony.domain.entities.Post" />
+            app:argType="com.michaellaguerre.homeassignment.domain.entities.Post" />
         <argument
             android:name="author"
-            app:argType="com.michaellaguerre.symphony.domain.entities.Author" />
+            app:argType="com.michaellaguerre.homeassignment.domain.entities.Author" />
     </fragment>
 </navigation>

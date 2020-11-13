@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.michaellaguerre.symphony.ui.views.SquareImageView
+            <com.michaellaguerre.homeassignment.ui.views.SquareImageView
                 android:id="@+id/postCoverImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

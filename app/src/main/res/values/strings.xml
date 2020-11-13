@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Symphony</string>
+    <string name="app_name">HomeAssignment</string>
 
     <!-- Loading state -->
     <string name="retry">Retry</string>

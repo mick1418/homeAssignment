@@ -14,7 +14,7 @@
             android:layout_height="@dimen/author_details_view_spacer"
             android:background="@color/author_details_background" />
 
-        <com.michaellaguerre.symphony.ui.views.AuthorDetailView
+        <com.michaellaguerre.homeassignment.ui.views.AuthorDetailView
             android:id="@+id/authorDetailsView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -29,7 +29,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1">
 
-                <com.michaellaguerre.symphony.ui.views.EmptyStateView
+                <com.michaellaguerre.homeassignment.ui.views.EmptyStateView
                     android:id="@+id/noData"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
