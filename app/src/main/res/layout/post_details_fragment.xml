@@ -14,13 +14,13 @@
 
         <!-- Banner -->
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/trainingDetailCollapsingToolbar"
+            android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:maxLines="3">
+            app:maxLines="3" app:collapsedTitleTextAppearance="@style/CollapsingToolbar">
 
 
             <FrameLayout
@@ -49,7 +49,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:title="POST TITLE" />
+                app:title="POST TITLE"
+                app:titleTextColor="@color/post_view_name"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -57,6 +59,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/post_detail_background"
             android:orientation="vertical"
             android:paddingStart="@dimen/post_details_view_horizontal_padding"
             android:paddingTop="@dimen/post_details_view_vertical_padding"
@@ -85,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/post_details_view_horizontal_padding"
                     android:layout_weight="1"
-                    android:textColor="?attr/colorSecondary"
+                    android:textColor="@color/post_detail_author_name"
                     tools:text="@tools:sample/full_names" />
 
                 <TextView
@@ -93,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-thin"
-                    android:textColor="?attr/colorSecondary"
+                    android:textColor="@color/post_detail_date"
                     tools:text="@tools:sample/date/ddmmyy" />
 
             </LinearLayout>
@@ -103,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/post_details_view_vertical_padding"
-                tools:text="POST TITLE ferhjk fdlskj fgskjl fgdsjkl gfdsjlk gfdsjkl gdsjkl gfjks lgfdjk ls gfd jkslgfdskjlgfdjkslj gfdjk sgfd jks gfd ksl gfdjksl gfds" />
+                tools:text="ferhjk fdlskj fgskjl fgdsjkl gfdsjlk gfdsjkl gdsjkl gfjks lgfdjk ls gfd jkslgfdskjlgfdjkslj gfdjk sgfd jks gfd ksl gfdjksl gfds" />
 
         </LinearLayout>
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="background">#121212</color>
+
+    <color name="author_details_background">#3a3a3a</color>
+    <color name="author_details_name">#FFBB86FC</color>
+    <color name="author_details_email">#FFFFFFFF</color>
+    <color name="author_details_username">#FFFFFFFF</color>
+
+    <!-- Posts -->
+    <color name="post_detail_background">#121212</color>
+    <color name="post_detail_author_name">@color/teal_200</color>
+    <color name="post_detail_date">@color/teal_200</color>
+    <color name="post_view_overlay_top">#00000000</color>
+    <color name="post_view_overlay_bottom">#000000</color>
+    <color name="post_view_name">#FFFFFF</color>
+    <color name="post_view_date">@color/teal_200</color>
+
+    <!-- Comments -->
+    <color name="comments_list_background">#424242</color>
+    <color name="comments_list_separator">#606060</color>
+
+    <!-- Empty state view -->
+    <color name="empty_state">#424242</color>
+
+    <!-- Placeholder -->
+    <color name="placeholder_background">#606060</color>
+</resources>

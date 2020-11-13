@@ -8,24 +8,31 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="author_details_background">#3a3a3a</color>
-    <color name="author_details_name">#FFBB86FC</color>
-    <color name="author_details_email">#FFFFFFFF</color>
-    <color name="author_details_username">#FFFFFFFF</color>
+    <color name="background">@color/white</color>
+
+
+
+    <color name="author_details_background">#e5e5e5</color>
+    <color name="author_details_name">@color/purple_700</color>
+    <color name="author_details_email">#313131</color>
+    <color name="author_details_username">#313131</color>
 
     <!-- Posts -->
-    <color name="post_detail_background">#121212</color>
+    <color name="post_detail_background">#d1d1d1</color>
+    <color name="post_detail_author_name">@color/purple_700</color>
+    <color name="post_detail_date">@color/purple_700</color>
     <color name="post_view_overlay_top">#00000000</color>
     <color name="post_view_overlay_bottom">#000000</color>
     <color name="post_view_name">#FFFFFF</color>
+    <color name="post_view_date">@color/purple_700</color>
 
     <!-- Comments -->
-    <color name="comments_list_background">#424242</color>
-    <color name="comments_list_separator">#606060</color>
+    <color name="comments_list_background">@color/white</color>
+    <color name="comments_list_separator">#c3c3c3</color>
 
     <!-- Empty state view -->
     <color name="empty_state">#424242</color>
 
     <!-- Placeholder -->
-    <color name="placeholder_background">#606060</color>
+    <color name="placeholder_background">#c3c3c3</color>
 </resources>

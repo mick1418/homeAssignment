@@ -19,4 +19,13 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="CollapsingToolbar" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="collapsingToolbarLayoutTitleColor">
+        <item name="android:textColor">@color/post_view_name</item>
+    </style>
 </resources>

@@ -54,7 +54,7 @@
                 android:fontFamily="sans-serif-thin"
                 android:gravity="end"
                 android:paddingTop="@dimen/post_description_spacing"
-                android:textColor="?attr/colorSecondary"
+                android:textColor="@color/post_view_date"
                 tools:text="@tools:sample/date/ddmmyy" />
 
         </LinearLayout>

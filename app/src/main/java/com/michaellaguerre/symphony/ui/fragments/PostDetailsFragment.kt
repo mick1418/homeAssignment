@@ -120,6 +120,8 @@ class PostDetailsFragment : BaseFragment() {
                 DateUtils.API_FORMAT,
                 DateUtils.UI_FORMAT
             )
+            collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.post_view_name))
+            collapsingToolbarLayout.setExpandedTitleColor(resources.getColor(R.color.post_view_name))
         }
     }
 
