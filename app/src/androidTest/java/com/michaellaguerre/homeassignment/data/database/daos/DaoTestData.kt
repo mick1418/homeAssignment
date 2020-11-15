@@ -1,7 +1,5 @@
-package com.michaellaguerre.homeassignment.utilities
+package com.michaellaguerre.homeassignment.data.database.daos
 
-import android.app.Activity
-import android.widget.Toolbar
 import com.michaellaguerre.homeassignment.data.entities.*
 
 
@@ -210,14 +208,3 @@ val testCommentsPost2 = arrayListOf(comment1post2, comment2post2, comment3post2)
 val remoteKey1 = RemoteKey("label1")
 val remoteKey2 = RemoteKey("label2")
 val remoteKey3 = RemoteKey("label3")
-
-val testRemoteKeys = arrayListOf(
-    remoteKey1, remoteKey2, remoteKey3
-)
-
-/**
- * Returns the content description for the navigation button view in the toolbar.
- */
-fun getToolbarNavigationContentDescription(activity: Activity, toolbarId: Int) =
-    activity.findViewById<Toolbar>(toolbarId).navigationContentDescription as String
-

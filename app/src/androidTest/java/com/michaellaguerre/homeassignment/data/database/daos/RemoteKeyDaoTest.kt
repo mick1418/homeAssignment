@@ -6,9 +6,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.michaellaguerre.homeassignment.data.database.AppDatabase
 import com.michaellaguerre.homeassignment.utilities.getValue
-import com.michaellaguerre.homeassignment.utilities.remoteKey1
-import com.michaellaguerre.homeassignment.utilities.remoteKey2
-import com.michaellaguerre.homeassignment.utilities.remoteKey3
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matchers.contains
 import org.hamcrest.Matchers.equalTo
