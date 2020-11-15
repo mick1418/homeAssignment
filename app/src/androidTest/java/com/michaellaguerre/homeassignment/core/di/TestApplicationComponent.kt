@@ -1,10 +1,8 @@
 package com.michaellaguerre.homeassignment.core.di
 
-import android.app.Application
 import com.michaellaguerre.homeassignment.MainActivity
-import com.michaellaguerre.homeassignment.core.di.modules.ApplicationModule
-import com.michaellaguerre.homeassignment.core.di.modules.DatabaseModule
-import com.michaellaguerre.homeassignment.core.di.modules.NetworkModule
+import com.michaellaguerre.homeassignment.MyApplication
+import com.michaellaguerre.homeassignment.core.di.modules.*
 import com.michaellaguerre.homeassignment.core.di.scopes.ApplicationScope
 import com.michaellaguerre.homeassignment.ui.fragments.AuthorDetailsFragment
 import com.michaellaguerre.homeassignment.ui.fragments.AuthorsFragment
@@ -13,17 +11,16 @@ import com.michaellaguerre.homeassignment.ui.viewmodels.AuthorDetailsViewModel
 import com.michaellaguerre.homeassignment.ui.viewmodels.AuthorsViewModel
 import com.michaellaguerre.homeassignment.ui.viewmodels.PostDetailsViewModel
 import dagger.Component
-import javax.inject.Singleton
 
-@Singleton
-@Component(modules = [ApplicationModule::class, NetworkModule::class, DatabaseModule::class])
-interface ApplicationComponent {
+@ApplicationScope
+@Component(modules = [TestApplicationModule::class, TestNetworkModule::class, DatabaseModule::class])
+interface TestApplicationComponent {
 
     //**********************************************************************************************
     // APPLICATION
     //**********************************************************************************************
 
-    fun inject(application: Application)
+    fun inject(application: MyApplication)
 
 
     //**********************************************************************************************

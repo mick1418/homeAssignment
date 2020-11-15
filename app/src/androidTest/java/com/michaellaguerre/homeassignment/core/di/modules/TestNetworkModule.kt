@@ -16,6 +16,22 @@ import javax.inject.Singleton
 class TestNetworkModule: NetworkModule() {
 
     /**
+     * Provides a singleton instance of Retrofit
+     *
+     * @param okHttpClient an instance of okHttpClient used to configure Retrofit
+     * @return an instance of Retrofit
+     */
+    @Provides
+    @Singleton
+    override fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("http://localhost:8080/")
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    /**
      * Provides a singleton instance of [AuthorsApi].
      *
      * @param retrofit the [Retrofit] instance

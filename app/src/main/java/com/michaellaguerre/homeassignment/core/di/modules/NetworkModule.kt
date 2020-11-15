@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+open class NetworkModule {
 
     /**
      * Provides a singleton instance of Retrofit
@@ -23,7 +23,7 @@ class NetworkModule {
      */
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    open fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constants.RetrofitConfiguration.BASE_URL)
             .client(okHttpClient)
@@ -56,7 +56,7 @@ class NetworkModule {
      */
     @Provides
     @Singleton
-    fun provideAuthorsApi(retrofit: Retrofit): AuthorsApi {
+    open fun provideAuthorsApi(retrofit: Retrofit): AuthorsApi {
         return retrofit.create(AuthorsApi::class.java)
     }
 
@@ -68,7 +68,7 @@ class NetworkModule {
      */
     @Provides
     @Singleton
-    fun providePostsApi(retrofit: Retrofit): PostsApi {
+    open fun providePostsApi(retrofit: Retrofit): PostsApi {
         return retrofit.create(PostsApi::class.java)
     }
 
@@ -80,7 +80,7 @@ class NetworkModule {
      */
     @Provides
     @Singleton
-    fun provideCommentsApi(retrofit: Retrofit): CommentsApi {
+    open fun provideCommentsApi(retrofit: Retrofit): CommentsApi {
         return retrofit.create(CommentsApi::class.java)
     }
 }

@@ -6,15 +6,9 @@ import com.michaellaguerre.homeassignment.core.di.modules.ApplicationModule
 import com.michaellaguerre.homeassignment.core.di.DaggerApplicationComponent
 import com.michaellaguerre.homeassignment.core.di.modules.NetworkModule
 
-class MyApplication: Application(){
+open class MyApplication: Application(){
 
-    val appComponent: ApplicationComponent by lazy {
-        DaggerApplicationComponent
-            .builder()
-            .applicationModule(ApplicationModule(this))
-            .networkModule(NetworkModule())
-            .build()
-    }
+    lateinit var appComponent: ApplicationComponent
 
 
     //**********************************************************************************************
@@ -23,7 +17,17 @@ class MyApplication: Application(){
 
     override fun onCreate() {
         super.onCreate()
+        appComponent = getComponent()
+
         this.injectMembers()
+    }
+
+    open fun getComponent(): ApplicationComponent {
+        return DaggerApplicationComponent
+            .builder()
+            .applicationModule(ApplicationModule(this))
+            .networkModule(NetworkModule())
+            .build()
     }
 
     private fun injectMembers() = appComponent.inject(this)

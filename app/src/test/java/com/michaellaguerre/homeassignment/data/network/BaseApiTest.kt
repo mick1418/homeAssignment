@@ -27,6 +27,8 @@ abstract class BaseApiTest {
 
     @Before
     fun createServer() {
+
+        // These dependencies should be provided by the Dagger Test modules
         mockWebServer = MockWebServer()
         retrofit = Retrofit.Builder()
             .baseUrl(mockWebServer.url("/"))
@@ -45,6 +47,16 @@ abstract class BaseApiTest {
     }
 
 
+    /**
+     * Enqueues a predefined response to the MockWebServer.
+     * This response will be served the next time the server must serve a url.
+     *
+     * The response will be retrieved from a json file in the "resources/api-response" directory.
+     *
+     * @param mockWebServer the [MockWebServer]
+     * @param fileName the filename of the json file to be served
+     * @param headers a list of headers to be served with the response (default empty list)
+     */
     fun enqueueResponse(
         mockWebServer: MockWebServer,
         fileName: String,

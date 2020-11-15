@@ -1,5 +1,6 @@
 package com.michaellaguerre.homeassignment.core.di.modules
 
+import android.app.Application
 import android.content.Context
 import com.michaellaguerre.homeassignment.MyApplication
 import com.michaellaguerre.homeassignment.data.database.AppDatabase
@@ -14,7 +15,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(private val application: MyApplication) {
+open class ApplicationModule(private val application: Application) {
 
     /**
      * Provides a singleton instance for the MyApplication
