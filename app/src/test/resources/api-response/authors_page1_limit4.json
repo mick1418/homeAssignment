@@ -1,0 +1,46 @@
+[
+  {
+    "id": 145,
+    "name": "Adrienne Wiegand",
+    "userName": "Bruce_Sporer",
+    "email": "sylvester.hauck39@gmail.com",
+    "avatarUrl": "https://s3.amazonaws.com/uifaces/faces/twitter/gmourier/128.jpg",
+    "address": {
+      "latitude": "-63.7084",
+      "longitude": "111.9009"
+    }
+  },
+  {
+    "id": 108,
+    "name": "Alexander Kessler",
+    "userName": "Noah35",
+    "email": "freida.torp54@gmail.com",
+    "avatarUrl": "https://s3.amazonaws.com/uifaces/faces/twitter/soyjavi/128.jpg",
+    "address": {
+      "latitude": "-6.3353",
+      "longitude": "-165.2203"
+    }
+  },
+  {
+    "id": 86,
+    "name": "Alfred Larson DVM",
+    "userName": "Lester.Spinka",
+    "email": "nikko89@gmail.com",
+    "avatarUrl": "https://s3.amazonaws.com/uifaces/faces/twitter/mhesslow/128.jpg",
+    "address": {
+      "latitude": "-73.8757",
+      "longitude": "49.4683"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Alicia Miller",
+    "userName": "Rocio_Jacobson41",
+    "email": "andrew.bogan@gmail.com",
+    "avatarUrl": "https://s3.amazonaws.com/uifaces/faces/twitter/woodsman001/128.jpg",
+    "address": {
+      "latitude": "36.3266",
+      "longitude": "-42.5060"
+    }
+  }
+]

@@ -1,0 +1,46 @@
+[
+    {
+      "id": 44,
+      "name": "Alvin Kulas PhD",
+      "userName": "Izabella_Gottlieb",
+      "email": "alexzander.kohler68@yahoo.com",
+      "avatarUrl": "https://s3.amazonaws.com/uifaces/faces/twitter/carbontwelve/128.jpg",
+      "address": {
+        "latitude": "-60.5533",
+        "longitude": "-170.0099"
+      }
+    },
+    {
+      "id": 70,
+      "name": "Amber Bailey Sr.",
+      "userName": "Kenna_Von",
+      "email": "agustina62@gmail.com",
+      "avatarUrl": "https://s3.amazonaws.com/uifaces/faces/twitter/BryanHorsey/128.jpg",
+      "address": {
+        "latitude": "60.3896",
+        "longitude": "158.5912"
+      }
+    },
+    {
+      "id": 46,
+      "name": "Amos Aufderhar",
+      "userName": "Adriana13",
+      "email": "dennis_bradtke55@yahoo.com",
+      "avatarUrl": "https://s3.amazonaws.com/uifaces/faces/twitter/illyzoren/128.jpg",
+      "address": {
+        "latitude": "5.1338",
+        "longitude": "107.6608"
+      }
+    },
+    {
+      "id": 110,
+      "name": "Amos Wiza",
+      "userName": "Edwardo.Bailey",
+      "email": "kailyn.kohler@yahoo.com",
+      "avatarUrl": "https://s3.amazonaws.com/uifaces/faces/twitter/scott_riley/128.jpg",
+      "address": {
+        "latitude": "-40.3215",
+        "longitude": "-167.6104"
+      }
+    }
+]
