@@ -22,7 +22,10 @@ interface AuthorsDao {
     fun getAll(): LiveData<List<AuthorEntity>>
 
     @Query("SELECT * FROM authors WHERE id LIKE :id LIMIT 1")
-    fun findById(id: Int): LiveData<AuthorEntity>
+    fun getById(id: Int): LiveData<AuthorEntity>
+
+    @Query("SELECT * FROM authors ORDER BY name ASC")
+    fun authorsOrderedByName(): LiveData<List<AuthorEntity>>
 
     @Query("SELECT * FROM authors ORDER BY name ASC")
     fun authorsPagingSource(): PagingSource<Int, AuthorEntity>

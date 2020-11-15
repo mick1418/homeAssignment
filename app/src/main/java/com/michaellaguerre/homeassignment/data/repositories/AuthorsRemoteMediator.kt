@@ -53,7 +53,7 @@ class AuthorsRemoteMediator(
 
                     // First query the database to retrieve a "bookmark" to the next page
                     val remoteKey = database.withTransaction {
-                        remoteKeysDao.remoteKeyByQuery(query)
+                        remoteKeysDao.getRemoteKeyByQuery(query)
                     }
 
                     // When remoteKey is null (in case of no network on first load for example), return

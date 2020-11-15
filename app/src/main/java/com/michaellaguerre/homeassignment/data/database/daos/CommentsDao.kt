@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.michaellaguerre.homeassignment.data.entities.CommentEntity
+import javax.inject.Singleton
 
 /**
  * Room DAO interface containing comment-related database queries
  */
+@Singleton
 @Dao
 interface CommentsDao {
 
@@ -19,7 +21,10 @@ interface CommentsDao {
     fun getAll(): LiveData<List<CommentEntity>>
 
     @Query("SELECT * FROM comments WHERE id LIKE :id LIMIT 1")
-    fun findById(id: Int): LiveData<CommentEntity>
+    fun getById(id: Int): LiveData<CommentEntity>
+
+    @Query("SELECT * FROM comments WHERE postId IS :postId ORDER BY date ASC")
+    fun commentsByPostOrderedByDate(postId: Int): LiveData<List<CommentEntity>>
 
     @Query("SELECT * FROM comments WHERE postId IS :postId ORDER BY date ASC")
     fun commentsByPostPagingSource(postId: Int): PagingSource<Int, CommentEntity>
@@ -44,10 +49,10 @@ interface CommentsDao {
     fun delete(comment: CommentEntity)
 
     @Query("DELETE FROM comments")
-    suspend fun deleteAll()
+    fun deleteAll()
 
     @Query("DELETE FROM comments WHERE postId IS :postId")
-    suspend fun deleteAllCommentsForPost(postId: Int)
+    fun deleteAllCommentsForPost(postId: Int)
 
 
     //**********************************************************************************************

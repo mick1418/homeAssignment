@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.michaellaguerre.homeassignment.data.entities.PostEntity
+import javax.inject.Singleton
 
 /**
  * Room DAO interface containing post-related database queries
  */
+@Singleton
 @Dao
 interface PostsDao {
 
@@ -19,7 +21,10 @@ interface PostsDao {
     fun getAll(): LiveData<List<PostEntity>>
 
     @Query("SELECT * FROM posts WHERE id LIKE :id LIMIT 1")
-    fun findById(id: Int): LiveData<PostEntity>
+    fun getById(id: Int): LiveData<PostEntity>
+
+    @Query("SELECT * FROM posts WHERE authorId IS :authorId ORDER BY date DESC")
+    fun postsByAuthorOrderedByDateDesc(authorId: Int): LiveData<List<PostEntity>>
 
     @Query("SELECT * FROM posts WHERE authorId IS :authorId ORDER BY date DESC")
     fun postsByAuthorPagingSource(authorId: Int): PagingSource<Int, PostEntity>
@@ -44,10 +49,10 @@ interface PostsDao {
     fun delete(post: PostEntity)
 
     @Query("DELETE FROM posts")
-    suspend fun deleteAll()
+    fun deleteAll()
 
     @Query("DELETE FROM posts WHERE authorId LIKE :authorId")
-    suspend fun deleteAllPostsForAuthor(authorId: Int)
+    fun deleteAllPostsForAuthor(authorId: Int)
 
 
     //**********************************************************************************************
